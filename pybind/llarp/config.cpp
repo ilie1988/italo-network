@@ -22,7 +22,7 @@ namespace llarp
         .def_readwrite("connect", &Config::connect)
         .def_readwrite("links", &Config::links)
         .def_readwrite("api", &Config::api)
-        .def_readwrite("lokid", &Config::lokid)
+        .def_readwrite("italod", &Config::italod)
         .def_readwrite("bootstrap", &Config::bootstrap)
         .def_readwrite("logging", &Config::logging)
         .def("Load", &Config::Load);
@@ -92,14 +92,14 @@ namespace llarp
         .def_readwrite("enableRPCServer", &ApiConfig::m_enableRPCServer)
         .def_readwrite("rpcBindAddr", &ApiConfig::m_rpcBindAddr);
 
-    py::class_<LokidConfig>(mod, "LokidConfig")
+    py::class_<ItalodConfig>(mod, "ItalodConfig")
         .def(py::init<>())
-        .def_readwrite("whitelistRouters", &LokidConfig::whitelistRouters)
-        .def_readwrite("ident_keyfile", &LokidConfig::ident_keyfile)
+        .def_readwrite("whitelistRouters", &ItalodConfig::whitelistRouters)
+        .def_readwrite("ident_keyfile", &ItalodConfig::ident_keyfile)
         .def_property(
-            "lokidRPCAddr",
-            [](LokidConfig& self) { return self.lokidRPCAddr.full_address().c_str(); },
-            [](LokidConfig& self, std::string arg) { self.lokidRPCAddr = lokimq::address(arg); });
+            "italodRPCAddr",
+            [](ItalodConfig& self) { return self.italodRPCAddr.full_address().c_str(); },
+            [](ItalodConfig& self, std::string arg) { self.italodRPCAddr = italomq::address(arg); });
 
     py::class_<BootstrapConfig>(mod, "BootstrapConfig")
         .def(py::init<>())

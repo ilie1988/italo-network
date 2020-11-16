@@ -71,7 +71,7 @@ namespace llarp
         "min-connections",
         Default{minConnections},
         Comment{
-            "Minimum number of routers lokinet will attempt to maintain connections to.",
+            "Minimum number of routers italonet will attempt to maintain connections to.",
         },
         [=](int arg) {
           if (arg < minConnections)
@@ -87,7 +87,7 @@ namespace llarp
         "max-connections",
         Default{maxConnections},
         Comment{
-            "Maximum number (hard limit) of routers lokinet will be connected to at any time.",
+            "Maximum number (hard limit) of routers italonet will be connected to at any time.",
         },
         [=](int arg) {
           if (arg < maxConnections)
@@ -103,7 +103,7 @@ namespace llarp
         "data-dir",
         Default{params.defaultDataDir},
         Comment{
-            "Optional directory for containing lokinet runtime data. This includes generated",
+            "Optional directory for containing italonet runtime data. This includes generated",
             "private keys.",
         },
         [this](fs::path arg) {
@@ -160,7 +160,7 @@ namespace llarp
         RelayOnly,
         Default{DefaultPublicPort},
         Comment{
-            "When specifying public-ip=, this specifies the public UDP port at which this lokinet",
+            "When specifying public-ip=, this specifies the public UDP port at which this italonet",
             "router is reachable. Required when public-ip is used.",
         },
         [this](int arg) {
@@ -316,7 +316,7 @@ namespace llarp
         AssignmentAcceptor(m_AuthUrl),
         Comment{
             "lmq endpoint to talk to for authenticating new sessions",
-            "ipc:///var/lib/lokinet/auth.socket",
+            "ipc:///var/lib/italonet/auth.socket",
             "tcp://127.0.0.1:5555",
         });
 
@@ -341,12 +341,12 @@ namespace llarp
         ClientOnly,
         MultiValue,
         Comment{
-            "manually add a remote endpoint by .loki address to the access whitelist",
+            "manually add a remote endpoint by .italo address to the access whitelist",
         },
         [this](std::string arg) {
           service::Address addr;
           if (not addr.FromString(arg))
-            throw std::invalid_argument(stringify("bad loki address: ", arg));
+            throw std::invalid_argument(stringify("bad italo address: ", arg));
           m_AuthWhitelist.emplace(std::move(addr));
         });
 
@@ -417,10 +417,10 @@ namespace llarp
         "exit-node",
         ClientOnly,
         Comment{
-            "Specify a `.loki` address and an optional ip range to use as an exit broker.",
+            "Specify a `.italo` address and an optional ip range to use as an exit broker.",
             "Example:",
-            "exit-node=whatever.loki # maps all exit traffic to whatever.loki",
-            "exit-node=stuff.loki:100.0.0.0/24 # maps 100.0.0.0/24 to stuff.loki",
+            "exit-node=whatever.italo # maps all exit traffic to whatever.italo",
+            "exit-node=stuff.italo:100.0.0.0/24 # maps 100.0.0.0/24 to stuff.italo",
         },
         [this](std::string arg) {
           if (arg.empty())
@@ -461,8 +461,8 @@ namespace llarp
         Comment{
             "Specify an optional authentication code required to use a non-public exit node.",
             "For example:",
-            "    exit-auth=myfavouriteexit.loki:abc",
-            "uses the authentication code `abc` whenever myfavouriteexit.loki is accessed.",
+            "    exit-auth=myfavouriteexit.italo:abc",
+            "uses the authentication code `abc` whenever myfavouriteexit.italo is accessed.",
             "Can be specified multiple time to store codes for different exit nodes.",
         },
         [this](std::string arg) {
@@ -475,7 +475,7 @@ namespace llarp
           {
             throw std::invalid_argument(
                 "[network]:exit-auth invalid format, expects "
-                "exit-address.loki:auth-code-goes-here");
+                "exit-address.italo:auth-code-goes-here");
           }
           const auto exit_str = arg.substr(0, pos);
           auth.token = arg.substr(pos + 1);
@@ -497,8 +497,8 @@ namespace llarp
         "network",
         "ifname",
         Comment{
-            "Interface name for lokinet traffic. If unset lokinet will look for a free name",
-            "lokinetN, starting at 0 (e.g. lokinet0, lokinet1, ...).",
+            "Interface name for italonet traffic. If unset italonet will look for a free name",
+            "italonetN, starting at 0 (e.g. italonet0, italonet1, ...).",
         },
         AssignmentAcceptor(m_ifname));
 
@@ -506,9 +506,9 @@ namespace llarp
         "network",
         "ifaddr",
         Comment{
-            "Local IP and range for lokinet traffic. For example, 172.16.0.1/16 to use",
+            "Local IP and range for italonet traffic. For example, 172.16.0.1/16 to use",
             "172.16.0.1 for this machine and 172.16.x.y for remote peers. If omitted then",
-            "lokinet will attempt to find an unused private range.",
+            "italonet will attempt to find an unused private range.",
         },
         [this](std::string arg) {
           if (not m_ifaddr.FromString(arg))
@@ -524,9 +524,9 @@ namespace llarp
         ClientOnly,
         MultiValue,
         Comment{
-            "Map a remote `.loki` address to always use a fixed local IP. For example:",
-            "    mapaddr=whatever.loki:172.16.0.10",
-            "maps `whatever.loki` to `172.16.0.10` instead of using the next available IP.",
+            "Map a remote `.italo` address to always use a fixed local IP. For example:",
+            "    mapaddr=whatever.italo:172.16.0.10",
+            "maps `whatever.italo` to `172.16.0.10` instead of using the next available IP.",
             "The given IP address must be inside the range configured by ifaddr=",
         },
         [this](std::string arg) {
@@ -568,7 +568,7 @@ namespace llarp
         ClientOnly,
         MultiValue,
         Comment{
-            "Adds a lokinet relay `.snode` address to the list of relays to avoid when",
+            "Adds a italonet relay `.snode` address to the list of relays to avoid when",
             "building paths. Can be specified multiple times.",
         },
         [this](std::string arg) {
@@ -589,8 +589,8 @@ namespace llarp
         MultiValue,
         Comment{
             "Specify SRV Records for services hosted on the SNApp",
-            "for more info see https://docs.loki.network/Lokinet/Guides/HostingSNApps/",
-            "srv=_service._protocol priority weight port target.loki",
+            "for more info see https://docs.italo.network/Italonet/Guides/HostingSNApps/",
+            "srv=_service._protocol priority weight port target.italo",
         },
         [this](std::string arg) {
           llarp::dns::SRVData newSRV;
@@ -628,7 +628,7 @@ namespace llarp
         DefaultUpstreamDNS,
         MultiValue,
         Comment{
-            "Upstream resolver(s) to use as fallback for non-loki addresses.",
+            "Upstream resolver(s) to use as fallback for non-italo addresses.",
             "Multiple values accepted.",
         },
         [=, first = true](std::string arg) mutable {
@@ -667,8 +667,8 @@ namespace llarp
         "no-resolvconf",
         ClientOnly,
         Comment{
-            "Can be uncommented and set to 1 to disable resolvconf configuration of lokinet DNS.",
-            "(This is not used directly by lokinet itself, but by the lokinet init scripts",
+            "Can be uncommented and set to 1 to disable resolvconf configuration of italonet DNS.",
+            "(This is not used directly by italonet itself, but by the italonet init scripts",
             "on systems which use resolveconf)",
         });
   }
@@ -720,7 +720,7 @@ namespace llarp
         "bind",
         {
             "This section specifies network interface names and/or IPs as keys, and",
-            "ports as values to control the address(es) on which Lokinet listens for",
+            "ports as values to control the address(es) on which Italonet listens for",
             "incoming data.",
             "",
             "Examples:",
@@ -739,7 +739,7 @@ namespace llarp
             "address at which this router can be reached.",
             ""
             "Typically this section can be left blank: if no inbound bind addresses are",
-            "configured then lokinet will search for a local network interface with a public",
+            "configured then italonet will search for a local network interface with a public",
             "IP address and use that (with port 1090).",
         });
 
@@ -748,7 +748,7 @@ namespace llarp
         "*",
         DefaultOutboundLinkValue,
         Comment{
-            "Specify a source port for **outgoing** Lokinet traffic, for example if you want to",
+            "Specify a source port for **outgoing** Italonet traffic, for example if you want to",
             "set up custom firewall rules based on the originating port. Typically this should",
             "be left unset to automatically choose random source ports.",
         },
@@ -845,48 +845,48 @@ namespace llarp
   }
 
   void
-  LokidConfig::defineConfigOptions(ConfigDefinition& conf, const ConfigGenParameters& params)
+  ItalodConfig::defineConfigOptions(ConfigDefinition& conf, const ConfigGenParameters& params)
   {
     (void)params;
 
     conf.defineOption<bool>(
-        "lokid",
+        "italod",
         "enabled",
         RelayOnly,
         Default{true},
         Comment{
-            "Whether or not we should talk to lokid. Must be enabled for staked routers.",
+            "Whether or not we should talk to italod. Must be enabled for staked routers.",
         },
         AssignmentAcceptor(whitelistRouters));
 
-    conf.defineOption<std::string>("lokid", "jsonrpc", RelayOnly, [](std::string arg) {
+    conf.defineOption<std::string>("italod", "jsonrpc", RelayOnly, [](std::string arg) {
       if (arg.empty())
         return;
       throw std::invalid_argument(
-          "the [lokid]:jsonrpc option is no longer supported; please use the [lokid]:rpc config "
-          "option instead with lokid's lmq-local-control address -- typically a value such as "
-          "rpc=ipc:///var/lib/loki/lokid.sock or rpc=ipc:///home/snode/.loki/lokid.sock");
+          "the [italod]:jsonrpc option is no longer supported; please use the [italod]:rpc config "
+          "option instead with italod's lmq-local-control address -- typically a value such as "
+          "rpc=ipc:///var/lib/italo/italod.sock or rpc=ipc:///home/snode/.italo/italod.sock");
     });
 
     conf.defineOption<std::string>(
-        "lokid",
+        "italod",
         "rpc",
         RelayOnly,
         Comment{
-            "lokimq control address for for communicating with lokid. Depends on lokid's",
+            "italomq control address for for communicating with italod. Depends on italod's",
             "lmq-local-control configuration option. By default this value should be",
-            "ipc://LOKID-DATA-DIRECTORY/lokid.sock, such as:",
-            "    rpc=ipc:///var/lib/loki/lokid.sock",
-            "    rpc=ipc:///home/USER/.loki/lokid.sock",
-            "but can use (non-default) TCP if lokid is configured that way:",
+            "ipc://ITALOD-DATA-DIRECTORY/italod.sock, such as:",
+            "    rpc=ipc:///var/lib/italo/italod.sock",
+            "    rpc=ipc:///home/USER/.italo/italod.sock",
+            "but can use (non-default) TCP if italod is configured that way:",
             "    rpc=tcp://127.0.0.1:5678",
         },
-        [this](std::string arg) { lokidRPCAddr = lokimq::address(arg); });
+        [this](std::string arg) { italodRPCAddr = italomq::address(arg); });
 
     // Deprecated options:
-    conf.defineOption<std::string>("lokid", "username", Deprecated);
-    conf.defineOption<std::string>("lokid", "password", Deprecated);
-    conf.defineOption<std::string>("lokid", "service-node-seed", Deprecated);
+    conf.defineOption<std::string>("italod", "username", Deprecated);
+    conf.defineOption<std::string>("italod", "password", Deprecated);
+    conf.defineOption<std::string>("italod", "service-node-seed", Deprecated);
   }
 
   void
@@ -1100,7 +1100,7 @@ namespace llarp
     dns.defineConfigOptions(conf, params);
     links.defineConfigOptions(conf, params);
     api.defineConfigOptions(conf, params);
-    lokid.defineConfigOptions(conf, params);
+    italod.defineConfigOptions(conf, params);
     bootstrap.defineConfigOptions(conf, params);
     logging.defineConfigOptions(conf, params);
   }
@@ -1238,11 +1238,11 @@ namespace llarp
     initializeConfig(def, params);
     generateCommonConfigComments(def);
 
-    // lokid
+    // italod
     def.addSectionComments(
-        "lokid",
+        "italod",
         {
-            "Settings for communicating with lokid",
+            "Settings for communicating with italod",
         });
 
     return def.generateINIConfig(true);

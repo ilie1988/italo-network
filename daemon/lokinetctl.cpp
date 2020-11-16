@@ -37,8 +37,8 @@ int
 main(int argc, char* argv[])
 {
   cxxopts::Options options(
-      "lokinetctl",
-      "LokiNET is a free, open source, private, "
+      "italonetctl",
+      "ItaloNET is a free, open source, private, "
       "decentralized, \"market based sybil resistant\" "
       "and IP based onion routing network");
 

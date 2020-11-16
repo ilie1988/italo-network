@@ -2,7 +2,7 @@
 #include <crypto/crypto.hpp>
 #include <path/path.hpp>
 
-#include <lokimq/bt_serialize.h>
+#include <italomq/bt_serialize.h>
 
 namespace llarp
 {
@@ -184,9 +184,9 @@ namespace llarp
 
         try
         {
-          lokimq::bt_deserialize(srvString, SRVs);
+          italomq::bt_deserialize(srvString, SRVs);
         }
-        catch (const lokimq::bt_deserialize_invalid& err)
+        catch (const italomq::bt_deserialize_invalid& err)
         {
           LogError("Error decoding SRV records from IntroSet: ", err.what());
           return false;
@@ -242,7 +242,7 @@ namespace llarp
 
       if (SRVs.size())
       {
-        std::string serial = lokimq::bt_serialize(SRVs);
+        std::string serial = italomq::bt_serialize(SRVs);
         if (!bencode_write_bytestring(buf, "s", 1))
           return false;
         if (!buf->write(serial.begin(), serial.end()))

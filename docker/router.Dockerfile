@@ -8,13 +8,13 @@ WORKDIR /src/
 COPY . /src/
 
 RUN make NINJA=ninja STATIC_LINK=ON BUILD_TYPE=Release DOWNLOAD_SODIUM=ON
-RUN ./lokinet-bootstrap ${bootstrap}
+RUN ./italonet-bootstrap ${bootstrap}
 
 FROM alpine:latest
 
-COPY lokinet-docker.ini /root/.lokinet/lokinet.ini
-COPY --from=builder /src/build/daemon/lokinet .
-COPY --from=builder /root/.lokinet/bootstrap.signed /root/.lokinet/
+COPY italonet-docker.ini /root/.italonet/italonet.ini
+COPY --from=builder /src/build/daemon/italonet .
+COPY --from=builder /root/.italonet/bootstrap.signed /root/.italonet/
 
-CMD ["./lokinet"]
+CMD ["./italonet"]
 EXPOSE 1090/udp 1190/tcp

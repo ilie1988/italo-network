@@ -1,5 +1,5 @@
 
-* lokinet components
+* italonet components
   
 ** basic data structures
 *** AlignedBuffer

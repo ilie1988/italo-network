@@ -1,8 +1,8 @@
 FROM compose-base:latest
 
-ENV LOKINET_NETID=docker
+ENV ITALONET_NETID=docker
 
-COPY ./docker/compose/bootstrap.ini /root/.lokinet/lokinet.ini
+COPY ./docker/compose/bootstrap.ini /root/.italonet/italonet.ini
 
-CMD ["/lokinet"]
+CMD ["/italonet"]
 EXPOSE 1090/udp 1190/tcp

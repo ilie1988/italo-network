@@ -18,7 +18,7 @@ def clientNodeName(id): return 'client-node-%03d' % id
 
 def main():
     ap = AP()
-    ap.add_argument('--lokid', type=str, required=True)
+    ap.add_argument('--italod', type=str, required=True)
     ap.add_argument('--valgrind', type=bool, default=False)
     ap.add_argument('--dir', type=str, default='testnet_tmp')
     ap.add_argument('--svc', type=int, default=20,
@@ -67,10 +67,10 @@ def main():
         config['api'] = {
             'enabled': 'false'
         }
-        config['lokid'] = {
+        config['italod'] = {
             'enabled': 'true',
             'username': 'svc-%03d' % nodeid,
-            'password': 'lokinet',
+            'password': 'italonet',
             'jsonrpc': '127.0.0.1:5000'
         }
         d = os.path.join(args.dir, svcNodeName(nodeid))
@@ -125,13 +125,13 @@ type=null
 ''')
 
     with open(args.out, 'w') as f:
-        f.write('''[program:mock-lokid]
+        f.write('''[program:mock-italod]
 command = {} {}
 autorestart = true
 redirect_stderr=true
-stdout_logfile={}/lokid.txt
+stdout_logfile={}/italod.txt
 stdout_logfile_maxbytes=0
-'''.format(args.lokid, args.svc, args.dir))
+'''.format(args.italod, args.svc, args.dir))
         f.write('''[program:svc-node]
 directory = {}
 command = {} daemon.ini

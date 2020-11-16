@@ -1,12 +1,12 @@
-#ifndef LOKINET_BOOTSERV_CONFIG_HPP
-#define LOKINET_BOOTSERV_CONFIG_HPP
+#ifndef ITALONET_BOOTSERV_CONFIG_HPP
+#define ITALONET_BOOTSERV_CONFIG_HPP
 #include <unordered_map>
 #include <string_view>
 #include <functional>
 #include <memory>
 #include <vector>
 
-namespace lokinet
+namespace italonet
 {
   namespace bootserv
   {
@@ -42,6 +42,6 @@ namespace lokinet
       Config_impl_t m_Config;
     };
   }  // namespace bootserv
-}  // namespace lokinet
+}  // namespace italonet
 
 #endif

@@ -1,34 +1,34 @@
-# Lokinet
+# Italonet
 
 [Español](readme_es.md) [Русский](readme_ru.md)
 
-Lokinet is the reference implementation of LLARP (low latency anonymous routing protocol), a layer 3 onion routing protocol.
+Italonet is the reference implementation of LLARP (low latency anonymous routing protocol), a layer 3 onion routing protocol.
 
 You can learn more about the high level design of LLARP [here](docs/high-level.txt)
 
 And you can read the LLARP protocol specification [here](docs/proto_v0.txt)
 
-You can view documentation on how to get started [here](https://loki-project.github.io/loki-docs/Lokinet/LokinetOverview/) .
+You can view documentation on how to get started [here](https://italo-project.github.io/italo-docs/Italonet/ItalonetOverview/) .
 
-[![Build Status](https://drone.lokinet.dev/api/badges/loki-project/loki-network/status.svg?ref=refs/heads/master)](https://drone.lokinet.dev/loki-project/loki-network)
+[![Build Status](https://drone.italonet.dev/api/badges/italo-project/italo-network/status.svg?ref=refs/heads/master)](https://drone.italonet.dev/italo-project/italo-network)
 
 ## Usage
 
-See the [documentation](https://loki-project.github.io/loki-docs/Lokinet/LokinetOverview/) on how to get started.
+See the [documentation](https://italo-project.github.io/italo-docs/Italonet/ItalonetOverview/) on how to get started.
 
-Also read the [Public Testing Guide](https://lokidocs.com/Lokinet/Guides/PublicTestingGuide/#1-lokinet-installation) for installation and other helpful information.
+Also read the [Public Testing Guide](https://italodocs.com/Italonet/Guides/PublicTestingGuide/#1-italonet-installation) for installation and other helpful information.
 
 ### Create default config
 
 to configure as client:
 
-    $ lokinet -g
-    $ lokinet-bootstrap
+    $ italonet -g
+    $ italonet-bootstrap
 
 to configure as relay:
 
-    $ lokinet -r -g
-    $ lokinet-bootstrap
+    $ italonet -r -g
+    $ italonet-bootstrap
 
 
 ## Running on Linux
@@ -37,17 +37,17 @@ to configure as relay:
 
 to run, after you create default config:
 
-    $ lokinet
+    $ italonet
 
 ## Running on MacOS/UNIX/BSD
 
 **YOU HAVE TO RUN AS ROOT**, run using sudo. Elevated privileges are needed to create the virtual tunnel interface.
 
-The MacOS installer places the normal binaries (`lokinet` and `lokinet-bootstrap`) in `/usr/local/bin` which should be in your path, so you can easily use the binaries from your terminal. The installer also nukes your previous config and keys and sets up a fresh config and downloads the latest bootstrap seed.
+The MacOS installer places the normal binaries (`italonet` and `italonet-bootstrap`) in `/usr/local/bin` which should be in your path, so you can easily use the binaries from your terminal. The installer also nukes your previous config and keys and sets up a fresh config and downloads the latest bootstrap seed.
 
 to run, after you create default config:
 
-    $ sudo lokinet
+    $ sudo italonet
 
 ## Running on Windows
 
@@ -71,8 +71,8 @@ Build requirements:
 build:
 
     $ sudo apt install build-essential cmake git libcap-dev curl libuv1-dev libsodium-dev pkg-config
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake .. -DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF -DSTATIC_LINK=ON
@@ -87,8 +87,8 @@ install:
 build:
     make sure you have cmake, libuv and xcode command line tools installed
 
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake .. -DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF -DSTATIC_LINK=ON
@@ -113,8 +113,8 @@ setup:
 
 building:
 
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build-windows
     $ cd build-windows
     $ cmake -DBUILD_STATIC_DEPS=ON -DNATIVE_BUILD=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_PACKAGE=ON -DCMAKE_TOOLCHAIN_FILE='../contrib/cross/mingw64.cmake' -DWITH_TESTS=OFF -DCMAKE_CROSSCOMPILING=ON ..
@@ -133,8 +133,8 @@ build:
     $ sudo pkg install build-essential gcc8 wget tuntap cmake (optional: ninja ccache - from omnios extra) (OmniOS CE)
     $ sudo pkg install base-developer-utilities developer-gnu developer-studio-utilities gcc-7 wget cmake (Oracle Solaris, see note)
     $ sudo pkg install build-essential wget gcc-8 documentation/tuntap header-tun tun (optional: ninja ccache) (all other SunOS)
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake ..
@@ -149,8 +149,8 @@ install:
 build:
 
     $ pkg install cmake git curl libuv libsodium pkgconf libunbound
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cmake -DCMAKE_BUILD_TYPE=Release ..
     $ make

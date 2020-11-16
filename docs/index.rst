@@ -1,8 +1,8 @@
 
-Welcome to Lokinet Internals
+Welcome to Italonet Internals
 ============================
 
 .. toctree::
    :maxdepth: 2
 
-   api/lokinet
+   api/italonet

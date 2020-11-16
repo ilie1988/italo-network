@@ -31,10 +31,10 @@ namespace llarp
       PermitTLD(const char* tld);
 
       std::string
-      ToString(const char* tld = ".loki") const;
+      ToString(const char* tld = ".italo") const;
 
       bool
-      FromString(std::string_view str, const char* tld = ".loki");
+      FromString(std::string_view str, const char* tld = ".italo");
 
       Address() : AlignedBuffer<32>()
       {}

@@ -1,4 +1,4 @@
-package network.loki.lokinet;
+package network.italo.italonet;
 
 
 import java.io.File;
@@ -30,10 +30,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
-public class LokiNetActivity extends Activity {
-	private static final String TAG = "lokinet-activity";
+public class ItaloNetActivity extends Activity {
+	private static final String TAG = "italonet-activity";
 	private TextView textView;
-	private static final String DefaultBootstrapURL = "https://seed.lokinet.org/bootstrap.signed";
+	private static final String DefaultBootstrapURL = "https://seed.italonet.org/bootstrap.signed";
 
 	private AsyncBootstrap bootstrapper;
 
@@ -42,7 +42,7 @@ public class LokiNetActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		textView = new TextView(this);
 		setContentView(textView);
-		System.loadLibrary("lokinet-android");
+		System.loadLibrary("italonet-android");
 	}
 
 
@@ -63,7 +63,7 @@ public class LokiNetActivity extends Activity {
 		}
 	}
 
-	public void startLokinet()
+	public void startItalonet()
 	{
 		if(bootstrapper != null)
 			return;
@@ -72,10 +72,10 @@ public class LokiNetActivity extends Activity {
 	}
 
   
-	public void runLokinetService()
+	public void runItalonetService()
 	{
-		startService(new Intent(LokiNetActivity.this,
-				LokinetService.class));
+		startService(new Intent(ItaloNetActivity.this,
+				ItalonetService.class));
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class LokiNetActivity extends Activity {
 		public void onPostExecute(String val) {
 			textView.setText(val);
 			if(val.equals(getString(R.string.bootstrap_ok)))
-				runLokinetService();
+				runItalonetService();
 			bootstrapDone();
 		}
 	}
@@ -145,7 +145,7 @@ public class LokiNetActivity extends Activity {
 		
 		switch(id){
 			case R.id.action_start:
-				startLokinet();
+				startItalonet();
 				return true;
 			case R.id.action_stop:
 				return true;

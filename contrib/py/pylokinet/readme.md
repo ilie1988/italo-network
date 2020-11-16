@@ -1,6 +1,6 @@
-# pylokinet
+# pyitalonet
 
-lokinet with python 3
+italonet with python 3
 
     # python3 setup.py install
 
@@ -8,20 +8,20 @@ lokinet with python 3
 
 bootserv is a bootstrap server for accepting and serving RCs
 
-    $ gunicorn -b 0.0.0.0:8000 pylokinet.bootserv:app
+    $ gunicorn -b 0.0.0.0:8000 pyitalonet.bootserv:app
 
-## pylokinet instance
+## pyitalonet instance
 
-obtain `liblokinet-shared.so` from a lokinet build
+obtain `libitalonet-shared.so` from a italonet build
 
 run (root):
     
-    # export LOKINET_ROOT=/tmp/lokinet-instance/
-    # export LOKINET_LIB=/path/to/liblokinet-shared.so
-    # export LOKINET_BOOTSTRAP_URL=http://bootserv.ip.address.here:8000/bootstrap.signed
-    # export LOKINET_PING_URL=http://bootserv.ip.address.here:8000/ping
-    # export LOKINET_SUBMIT_URL=http://bootserv.ip.address.here:8000/
-    # export LOKINET_IP=public.ip.goes.here
-    # export LOKINET_PORT=1090
-    # export LOKINET_IFNAME=eth0
-    # python3 -m pylokinet
+    # export ITALONET_ROOT=/tmp/italonet-instance/
+    # export ITALONET_LIB=/path/to/libitalonet-shared.so
+    # export ITALONET_BOOTSTRAP_URL=http://bootserv.ip.address.here:8000/bootstrap.signed
+    # export ITALONET_PING_URL=http://bootserv.ip.address.here:8000/ping
+    # export ITALONET_SUBMIT_URL=http://bootserv.ip.address.here:8000/
+    # export ITALONET_IP=public.ip.goes.here
+    # export ITALONET_PORT=1090
+    # export ITALONET_IFNAME=eth0
+    # python3 -m pyitalonet

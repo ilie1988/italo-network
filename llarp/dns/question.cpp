@@ -61,7 +61,7 @@ namespace llarp
     bool
     Question::IsLocalhost() const
     {
-      return (qname == "localhost.loki." or llarp::ends_with(qname, ".localhost.loki."));
+      return (qname == "localhost.italo." or llarp::ends_with(qname, ".localhost.italo."));
     }
 
     bool

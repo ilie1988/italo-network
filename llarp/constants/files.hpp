@@ -22,7 +22,7 @@ namespace llarp
   {
 #ifdef _WIN32
     const fs::path homedir = getenv("APPDATA");
-    return homedir / "lokinet";
+    return homedir / "italonet";
 #else
     fs::path homedir;
 
@@ -34,17 +34,17 @@ namespace llarp
     else
     {
       // no home dir specified yea idk
-      homedir = "/var/lib/lokinet";
+      homedir = "/var/lib/italonet";
       return homedir;
     }
-    return homedir / ".lokinet";
+    return homedir / ".italonet";
 #endif
   }
 
   inline fs::path
   GetDefaultConfigFilename()
   {
-    return "lokinet.ini";
+    return "italonet.ini";
   }
 
   inline fs::path

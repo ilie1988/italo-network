@@ -1,6 +1,6 @@
-# lokinet android
+# italonet android
 
-this directory contains basic stuff for lokinet on android.
+this directory contains basic stuff for italonet on android.
 
 ## Prerequsites
 

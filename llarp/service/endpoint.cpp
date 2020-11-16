@@ -913,7 +913,7 @@ namespace llarp
     std::unordered_map<std::string, std::string>
     Endpoint::NotifyParams() const
     {
-      return {{"LOKINET_ADDR", m_Identity.pub.Addr().ToString()}};
+      return {{"ITALONET_ADDR", m_Identity.pub.Addr().ToString()}};
     }
 
     void

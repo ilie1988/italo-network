@@ -1,5 +1,5 @@
-#ifndef LOKINET_JNI_COMMON_HPP
-#define LOKINET_JNI_COMMON_HPP
+#ifndef ITALONET_JNI_COMMON_HPP
+#define ITALONET_JNI_COMMON_HPP
 
 #include <jni.h>
 #include <string_view>

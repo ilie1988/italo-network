@@ -45,7 +45,7 @@ namespace llarp
   void
   AndroidLogStream::Print(LogLevel lvl, const char* tag, const std::string& msg)
   {
-    std::string str("lokinet|");
+    std::string str("italonet|");
     str += tag;
     switch (lvl)
     {

@@ -13,17 +13,17 @@ if(CCACHE_PROGRAM)
   endforeach()
 endif()
 
-set(PROJECT_NAME lokinet)
+set(PROJECT_NAME italonet)
 project(${PROJECT_NAME}
     VERSION 0.8.1
-    DESCRIPTION "lokinet - IP packet onion router"
+    DESCRIPTION "italonet - IP packet onion router"
     LANGUAGES C CXX)
 
 set(RELEASE_MOTTO "Proof of soon" CACHE STRING "Release motto")
 
-add_definitions(-DLLARP_VERSION_MAJOR=${lokinet_VERSION_MAJOR})
-add_definitions(-DLLARP_VERSION_MINOR=${lokinet_VERSION_MINOR})
-add_definitions(-DLLARP_VERSION_PATCH=${lokinet_VERSION_PATCH})
+add_definitions(-DLLARP_VERSION_MAJOR=${italonet_VERSION_MAJOR})
+add_definitions(-DLLARP_VERSION_MINOR=${italonet_VERSION_MINOR})
+add_definitions(-DLLARP_VERSION_PATCH=${italonet_VERSION_PATCH})
 if(RELEASE_MOTTO)
   add_definitions(-DLLARP_RELEASE_MOTTO="${RELEASE_MOTTO}")
 endif()
@@ -37,7 +37,7 @@ option(USE_AVX2 "enable avx2 code" OFF)
 option(USE_NETNS "enable networking namespace support. Linux only" OFF)
 option(NATIVE_BUILD "optimise for host system and FPU" ON)
 option(EMBEDDED_CFG "optimise for older hardware or embedded systems" OFF)
-option(BUILD_SHARED_LIBS "build lokinet libraries as shared libraries instead of static" OFF)
+option(BUILD_SHARED_LIBS "build italonet libraries as shared libraries instead of static" OFF)
 option(SHADOW "use shadow testing framework. linux only" OFF)
 option(XSAN "use sanitiser, if your system has it (requires -DCMAKE_BUILD_TYPE=Debug)" OFF)
 option(WITH_JEMALLOC "use jemalloc as allocator" OFF)
@@ -144,23 +144,23 @@ if(NOT TARGET sodium)
     target_link_libraries(sodium INTERFACE sodium_vendor)
   endif()
 
-  # Need this target export so that loki-mq properly picks up sodium
+  # Need this target export so that italo-mq properly picks up sodium
   export(TARGETS sodium NAMESPACE sodium:: FILE sodium-exports.cmake)
 endif()
 
-option(FORCE_LOKIMQ_SUBMODULE "force using lokimq submodule" OFF)
-if(NOT FORCE_LOKIMQ_SUBMODULE)
-  pkg_check_modules(LOKIMQ liblokimq>=1.2)
+option(FORCE_ITALOMQ_SUBMODULE "force using italomq submodule" OFF)
+if(NOT FORCE_ITALOMQ_SUBMODULE)
+  pkg_check_modules(ITALOMQ libitalomq>=1.2)
 endif()
-if(LOKIMQ_FOUND)
-  add_library(lokimq INTERFACE)
-  link_dep_libs(lokimq INTERFACE "${LOKIMQ_LIBRARY_DIRS}" ${LOKIMQ_LIBRARIES})
-  target_include_directories(lokimq INTERFACE ${LOKIMQ_INCLUDE_DIRS})
-  add_library(lokimq::lokimq ALIAS lokimq)
-  message(STATUS "Found system liblokimq ${LOKIMQ_VERSION}")
+if(ITALOMQ_FOUND)
+  add_library(italomq INTERFACE)
+  link_dep_libs(italomq INTERFACE "${ITALOMQ_LIBRARY_DIRS}" ${ITALOMQ_LIBRARIES})
+  target_include_directories(italomq INTERFACE ${ITALOMQ_INCLUDE_DIRS})
+  add_library(italomq::italomq ALIAS italomq)
+  message(STATUS "Found system libitalomq ${ITALOMQ_VERSION}")
 else()
-  message(STATUS "using lokimq submodule")
-  add_subdirectory(${CMAKE_SOURCE_DIR}/external/loki-mq)
+  message(STATUS "using italomq submodule")
+  add_subdirectory(${CMAKE_SOURCE_DIR}/external/italo-mq)
 endif()
 
 
@@ -180,7 +180,7 @@ if(XSAN)
 endif()
 
 if(CMAKE_BUILD_TYPE MATCHES "[Dd][Ee][Bb][Uu][Gg]")
-  add_definitions(-DLOKINET_DEBUG=1)
+  add_definitions(-DITALONET_DEBUG=1)
 endif()
 
 if(WITH_SHELLHOOKS)
@@ -312,7 +312,7 @@ if(SUBMODULE_CHECK)
     if (NOT WIN32) # we grab libuv for windows separately in win32-setup/libuv. see note in cmake/win32.cmake.
       check_submodule(external/libuv)
     endif()
-    check_submodule(external/loki-mq)
+    check_submodule(external/italo-mq)
   endif()
 endif()
 
@@ -343,7 +343,7 @@ if(TRACY_ROOT)
 endif()
 
 if(WITH_HIVE)
-  add_definitions(-DLOKINET_HIVE=1)
+  add_definitions(-DITALONET_HIVE=1)
 endif()
 
 add_subdirectory(crypto)

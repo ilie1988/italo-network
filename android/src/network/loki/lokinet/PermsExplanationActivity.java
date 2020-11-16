@@ -1,4 +1,4 @@
-package network.loki.lokinet;
+package network.italo.italonet;
 
 import android.app.ActionBar;
 import android.content.Intent;

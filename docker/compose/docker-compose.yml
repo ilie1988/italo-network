@@ -15,9 +15,9 @@ services:
       - target: 1190
         protocol: tcp
     volumes:
-      - bootstrap-dir:/root/.lokinet/
+      - bootstrap-dir:/root/.italonet/
     environment:
-      - LOKINET_NETID=docker
+      - ITALONET_NETID=docker
     networks:
       testing_net:
 
@@ -42,7 +42,7 @@ services:
     volumes:
       - bootstrap-dir:/bootstrap/
     environment:
-      - LOKINET_NETID=docker
+      - ITALONET_NETID=docker
     networks:
       testing_net:
 
@@ -70,7 +70,7 @@ services:
     volumes:
       - bootstrap-dir:/bootstrap/
     environment:
-      - LOKINET_NETID=docker
+      - ITALONET_NETID=docker
     networks:
       testing_net:
 

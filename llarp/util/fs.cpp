@@ -17,7 +17,7 @@ namespace cpp17
 {
   namespace filesystem
   {
-#ifdef LOKINET_USE_CPPBACKPORT
+#ifdef ITALONET_USE_CPPBACKPORT
     const fs::perms active_bits(
         fs::perms::all | fs::perms::set_uid | fs::perms::set_gid | fs::perms::sticky_bit);
     inline mode_t

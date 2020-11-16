@@ -1,4 +1,4 @@
-#include <rpc/lokid_rpc_client.hpp>
+#include <rpc/italod_rpc_client.hpp>
 
 #include <stdexcept>
 #include <util/logging/logger.hpp>
@@ -14,62 +14,62 @@ namespace llarp
 {
   namespace rpc
   {
-    static lokimq::LogLevel
-    toLokiMQLogLevel(llarp::LogLevel level)
+    static italomq::LogLevel
+    toItaloMQLogLevel(llarp::LogLevel level)
     {
       switch (level)
       {
         case eLogError:
-          return lokimq::LogLevel::error;
+          return italomq::LogLevel::error;
         case eLogWarn:
-          return lokimq::LogLevel::warn;
+          return italomq::LogLevel::warn;
         case eLogInfo:
-          return lokimq::LogLevel::info;
+          return italomq::LogLevel::info;
         case eLogDebug:
-          return lokimq::LogLevel::debug;
+          return italomq::LogLevel::debug;
         case eLogNone:
         default:
-          return lokimq::LogLevel::trace;
+          return italomq::LogLevel::trace;
       }
     }
 
-    LokidRpcClient::LokidRpcClient(LMQ_ptr lmq, AbstractRouter* r)
-        : m_lokiMQ(std::move(lmq)), m_Router(r)
+    ItalodRpcClient::ItalodRpcClient(LMQ_ptr lmq, AbstractRouter* r)
+        : m_italoMQ(std::move(lmq)), m_Router(r)
     {
-      // m_lokiMQ->log_level(toLokiMQLogLevel(LogLevel::Instance().curLevel));
+      // m_italoMQ->log_level(toItaloMQLogLevel(LogLevel::Instance().curLevel));
 
       // TODO: proper auth here
-      auto lokidCategory = m_lokiMQ->add_category("lokid", lokimq::Access{lokimq::AuthLevel::none});
-      lokidCategory.add_request_command(
-          "get_peer_stats", [this](lokimq::Message& m) { HandleGetPeerStats(m); });
+      auto italodCategory = m_italoMQ->add_category("italod", italomq::Access{italomq::AuthLevel::none});
+      italodCategory.add_request_command(
+          "get_peer_stats", [this](italomq::Message& m) { HandleGetPeerStats(m); });
     }
 
     void
-    LokidRpcClient::ConnectAsync(lokimq::address url)
+    ItalodRpcClient::ConnectAsync(italomq::address url)
     {
       if (not m_Router->IsServiceNode())
       {
-        throw std::runtime_error("we cannot talk to lokid while not a service node");
+        throw std::runtime_error("we cannot talk to italod while not a service node");
       }
-      LogInfo("connecting to lokid via LMQ at ", url);
-      m_Connection = m_lokiMQ->connect_remote(
+      LogInfo("connecting to italod via LMQ at ", url);
+      m_Connection = m_italoMQ->connect_remote(
           url,
-          [self = shared_from_this()](lokimq::ConnectionID) { self->Connected(); },
-          [self = shared_from_this(), url](lokimq::ConnectionID, std::string_view f) {
-            llarp::LogWarn("Failed to connect to lokid: ", f);
+          [self = shared_from_this()](italomq::ConnectionID) { self->Connected(); },
+          [self = shared_from_this(), url](italomq::ConnectionID, std::string_view f) {
+            llarp::LogWarn("Failed to connect to italod: ", f);
             LogicCall(self->m_Router->logic(), [self, url]() { self->ConnectAsync(url); });
           });
     }
 
     void
-    LokidRpcClient::Command(std::string_view cmd)
+    ItalodRpcClient::Command(std::string_view cmd)
     {
-      LogDebug("lokid command: ", cmd);
-      m_lokiMQ->send(*m_Connection, std::move(cmd));
+      LogDebug("italod command: ", cmd);
+      m_italoMQ->send(*m_Connection, std::move(cmd));
     }
 
     void
-    LokidRpcClient::UpdateServiceNodeList()
+    ItalodRpcClient::UpdateServiceNodeList()
     {
       nlohmann::json request, fields;
       fields["pubkey_ed25519"] = true;
@@ -87,7 +87,7 @@ namespace llarp
             }
             if (data.size() < 2)
             {
-              LogWarn("lokid gave empty reply for service node list");
+              LogWarn("italod gave empty reply for service node list");
               return;
             }
             try
@@ -103,7 +103,7 @@ namespace llarp
     }
 
     void
-    LokidRpcClient::Connected()
+    ItalodRpcClient::Connected()
     {
       constexpr auto PingInterval = 30s;
       constexpr auto NodeListUpdateInterval = 30s;
@@ -111,21 +111,21 @@ namespace llarp
       auto makePingRequest = [self = shared_from_this()]() {
         nlohmann::json payload = {{"version", {VERSION[0], VERSION[1], VERSION[2]}}};
         self->Request(
-            "admin.lokinet_ping",
+            "admin.italonet_ping",
             [](bool success, std::vector<std::string> data) {
               (void)data;
               LogDebug("Received response for ping. Successful: ", success);
             },
             payload.dump());
       };
-      m_lokiMQ->add_timer(makePingRequest, PingInterval);
-      m_lokiMQ->add_timer(
+      m_italoMQ->add_timer(makePingRequest, PingInterval);
+      m_italoMQ->add_timer(
           [self = shared_from_this()]() { self->UpdateServiceNodeList(); }, NodeListUpdateInterval);
       UpdateServiceNodeList();
     }
 
     void
-    LokidRpcClient::HandleGotServiceNodeList(std::string data)
+    ItalodRpcClient::HandleGotServiceNodeList(std::string data)
     {
       auto j = nlohmann::json::parse(std::move(data));
       {
@@ -166,7 +166,7 @@ namespace llarp
 
       if (nodeList.empty())
       {
-        LogWarn("got empty service node list from lokid");
+        LogWarn("got empty service node list from italod");
         return;
       }
       // inform router about the new list
@@ -176,7 +176,7 @@ namespace llarp
     }
 
     SecretKey
-    LokidRpcClient::ObtainIdentityKey()
+    ItalodRpcClient::ObtainIdentityKey()
     {
       std::promise<SecretKey> promise;
       Request(
@@ -220,7 +220,7 @@ namespace llarp
     }
 
     void
-    LokidRpcClient::LookupLNSNameHash(
+    ItalodRpcClient::LookupLNSNameHash(
         dht::Key_t namehash,
         std::function<void(std::optional<service::EncryptedName>)> resultHandler)
     {
@@ -236,8 +236,8 @@ namespace llarp
               {
                 service::EncryptedName result;
                 const auto j = nlohmann::json::parse(data[1]);
-                result.ciphertext = lokimq::from_hex(j["encrypted_value"].get<std::string>());
-                const auto nonce = lokimq::from_hex(j["nonce"].get<std::string>());
+                result.ciphertext = italomq::from_hex(j["encrypted_value"].get<std::string>());
+                const auto nonce = italomq::from_hex(j["nonce"].get<std::string>());
                 if (nonce.size() != result.nonce.size())
                 {
                   throw std::invalid_argument(stringify(
@@ -258,7 +258,7 @@ namespace llarp
     }
 
     void
-    LokidRpcClient::HandleGetPeerStats(lokimq::Message& msg)
+    ItalodRpcClient::HandleGetPeerStats(italomq::Message& msg)
     {
       LogInfo("Got request for peer stats (size: ", msg.data.size(), ")");
       for (auto str : msg.data)
@@ -272,7 +272,7 @@ namespace llarp
       {
         LogWarn("HandleGetPeerStats called when router has no peerDb set up.");
 
-        // TODO: this can sometimes occur if lokid hits our API before we're done configuring
+        // TODO: this can sometimes occur if italod hits our API before we're done configuring
         //       (mostly an issue in a loopback testnet)
         msg.send_reply("EAGAIN");
         return;
@@ -284,13 +284,13 @@ namespace llarp
         // format)
         if (msg.data.empty())
         {
-          LogWarn("lokid requested peer stats with no request body");
+          LogWarn("italod requested peer stats with no request body");
           msg.send_reply("peer stats request requires list of router IDs");
           return;
         }
 
         std::vector<std::string> routerIdStrings;
-        lokimq::bt_deserialize(msg.data[0], routerIdStrings);
+        italomq::bt_deserialize(msg.data[0], routerIdStrings);
 
         std::vector<RouterID> routerIds;
         routerIds.reserve(routerIdStrings.size());
@@ -300,7 +300,7 @@ namespace llarp
           RouterID id;
           if (not id.FromString(routerIdString))
           {
-            LogWarn("lokid sent us an invalid router id: ", routerIdString);
+            LogWarn("italod sent us an invalid router id: ", routerIdString);
             msg.send_reply("Invalid router id");
             return;
           }

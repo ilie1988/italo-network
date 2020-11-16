@@ -19,4 +19,4 @@ If applicable, add screenshots or log files to help explain your problem.
 **Device and Operating system (please complete the following information):**
  - OS: [e.g. iOS, Windows, Android]
 -  Device: [ e.g. Mac, PC, IPhone]
- - Lokinet Version number or Git commit hash:
+ - Italonet Version number or Git commit hash:

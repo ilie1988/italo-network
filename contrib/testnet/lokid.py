@@ -37,7 +37,7 @@ class SVCNode:
 class MockServer:
 
     def __init__(self, numServiceNodes):
-        self.app = Flask('lokid-rpc-mock')
+        self.app = Flask('italod-rpc-mock')
         #self.app.config['SECRET_KEY'] = os.urandom(16)
         # populate service nodes
         self._serviceNodes = dict()
@@ -45,11 +45,11 @@ class MockServer:
             self.makeSNode("svc-%03d" % n)
 
         self._handlers = {
-            'lokinet_ping': self._lokinet_ping,
+            'italonet_ping': self._italonet_ping,
             'get_n_service_nodes' : self._get_n_service_nodes,
             'get_service_node_privkey' : self._get_service_node_privkey
         }
-        #digest = HTTPDigestAuth(realm='lokid')
+        #digest = HTTPDigestAuth(realm='italod')
     
         @self.app.route('/json_rpc', methods=["POST"])
         def _jsonRPC():
@@ -87,7 +87,7 @@ class MockServer:
             'service_node_ed25519_privkey': our_snode.seed()
         }
 
-    def _lokinet_ping(self, snode):
+    def _italonet_ping(self, snode):
         return {
             'status' : "OK"
         }

@@ -41,5 +41,5 @@ networksetup -setdnsservers "$SERVICE_NAME" 127.0.0.1
 
 trap "networksetup -setdnsservers \"$SERVICE_NAME\" $OLD_SERVERS" INT TERM EXIT
 
-/opt/lokinet/bin/lokinet /var/lib/lokinet/lokinet.ini
+/opt/italonet/bin/italonet /var/lib/italonet/italonet.ini
 

@@ -128,7 +128,7 @@ namespace llarp
     NameIsReserved(Name_t name)
     {
       const std::vector<std::string_view> reserved_names = {
-          "snode.loki"sv, "loki.loki"sv, "snode.loki."sv, "loki.loki."sv};
+          "snode.italo"sv, "italo.italo"sv, "snode.italo."sv, "italo.italo."sv};
       for (const auto& reserved : reserved_names)
       {
         if (ends_with(name, reserved))

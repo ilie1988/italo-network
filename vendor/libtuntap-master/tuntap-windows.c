@@ -413,7 +413,7 @@ tuntap_sys_set_ipv4(struct device *dev, t_tun_in_addr *s, uint32_t mask)
     return -1;
   }
 
-  /* set DNS address to 127.0.0.1 as lokinet-client runs its own DNS resolver
+  /* set DNS address to 127.0.0.1 as italonet-client runs its own DNS resolver
    * inline */
   dns.dhcp_opt = 6;
   dns.length   = 4;

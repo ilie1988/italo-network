@@ -1,7 +1,7 @@
 # Last Modified: Sat May  4 18:48:24 2019
 #include <tunables/global>
 
-/usr/bin/lokinet {
+/usr/bin/italonet {
   #include <abstractions/base>
 
   capability net_admin,
@@ -13,12 +13,12 @@
 
   /dev/net/tun rw,
   /lib/@{multiarch}/ld-*.so mr,
-  /usr/bin/lokinet mr,
+  /usr/bin/italonet mr,
 
-  owner /var/lib/lokinet/ rw,
-  owner /var/lib/lokinet/** rwk,
+  owner /var/lib/italonet/ rw,
+  owner /var/lib/italonet/** rwk,
 
-  owner @{HOME}/.lokinet/ rw,
-  owner @{HOME}/.lokinet/** rwk,
+  owner @{HOME}/.italonet/ rw,
+  owner @{HOME}/.italonet/** rwk,
 
 }

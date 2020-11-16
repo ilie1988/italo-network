@@ -1,5 +1,5 @@
-#ifndef LOKINET_BOOTSERV_CONFIG_HPP
-#define LOKINET_BOOTSERV_CONFIG_HPP
+#ifndef ITALONET_BOOTSERV_CONFIG_HPP
+#define ITALONET_BOOTSERV_CONFIG_HPP
 
 #include <string_view>
 #include <string>

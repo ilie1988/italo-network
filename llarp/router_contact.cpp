@@ -10,7 +10,7 @@
 #include <util/printer.hpp>
 #include <util/time.hpp>
 
-#include <lokimq/bt_serialize.h>
+#include <italomq/bt_serialize.h>
 
 #include <fstream>
 #include <util/fs.hpp>
@@ -89,7 +89,7 @@ namespace llarp
       return BEncodeSignedSection(buf);
     else if (version == 1)
     {
-      // TODO: heapless serialization for this in lokimq's bt serialization.
+      // TODO: heapless serialization for this in italomq's bt serialization.
       if (not buf->writef("li1e%zu:", signature.size()))
         return false;
       if (not buf->write(signature.begin(), signature.end()))
@@ -250,7 +250,7 @@ namespace llarp
     try
     {
       std::string_view buf_view(reinterpret_cast<char*>(buf->cur), buf->size_left());
-      lokimq::bt_list_consumer btlist(buf_view);
+      italomq::bt_list_consumer btlist(buf_view);
 
       uint64_t outer_version = btlist.consume_integer<uint64_t>();
 
@@ -258,7 +258,7 @@ namespace llarp
       {
         bool decode_result = DecodeVersion_1(btlist);
 
-        // advance the llarp_buffer_t since lokimq serialization is unaware of it.
+        // advance the llarp_buffer_t since italomq serialization is unaware of it.
         buf->cur += btlist.current_buffer().data() - buf_view.data() + 1;
 
         return decode_result;
@@ -284,7 +284,7 @@ namespace llarp
   }
 
   bool
-  RouterContact::DecodeVersion_1(lokimq::bt_list_consumer& btlist)
+  RouterContact::DecodeVersion_1(italomq::bt_list_consumer& btlist)
   {
     auto signature_string = btlist.consume_string_view();
     signed_bt_dict = btlist.consume_dict_data();

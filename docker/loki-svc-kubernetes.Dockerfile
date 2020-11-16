@@ -9,4 +9,4 @@ COPY . /src/
 
 RUN make -j 8 SHARED_LIB=ON JSONRPC=ON && make kubernetes-install
 
-ENTRYPOINT [ "/usr/bin/python3", "-m", "pylokinet"]
+ENTRYPOINT [ "/usr/bin/python3", "-m", "pyitalonet"]

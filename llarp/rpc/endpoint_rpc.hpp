@@ -1,7 +1,7 @@
 #pragma once
 
 #include <service/auth.hpp>
-#include <lokimq/lokimq.h>
+#include <italomq/italomq.h>
 
 namespace llarp::service
 {
@@ -13,7 +13,7 @@ namespace llarp::rpc
   struct EndpointAuthRPC : public llarp::service::IAuthPolicy,
                            public std::enable_shared_from_this<EndpointAuthRPC>
   {
-    using LMQ_ptr = std::shared_ptr<lokimq::LokiMQ>;
+    using LMQ_ptr = std::shared_ptr<italomq::ItaloMQ>;
     using Endpoint_ptr = std::shared_ptr<llarp::service::Endpoint>;
     using Whitelist_t = std::unordered_set<llarp::service::Address, llarp::service::Address::Hash>;
 
@@ -39,6 +39,6 @@ namespace llarp::rpc
     const Whitelist_t m_AuthWhitelist;
     LMQ_ptr m_LMQ;
     Endpoint_ptr m_Endpoint;
-    std::optional<lokimq::ConnectionID> m_Conn;
+    std::optional<italomq::ConnectionID> m_Conn;
   };
 }  // namespace llarp::rpc

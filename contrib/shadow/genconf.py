@@ -13,7 +13,7 @@ def getSetting(s, name, fallback): return name in s and s[name] or fallback
 shadowRoot = getSetting(os.environ, "SHADOW_ROOT",
                         os.path.join(os.environ['HOME'], '.shadow'))
 
-libpath = 'libshadow-plugin-lokinet.so'
+libpath = 'libshadow-plugin-italonet.so'
 
 
 def nodeconf(conf, baseDir, name, ifname=None, port=None):
@@ -83,13 +83,13 @@ def genconf(settings, outf):
     topology.attrib['path'] = getSetting(settings, 'topology', os.path.join(
         shadowRoot, 'share', 'topology.graphml.xml'))
 
-    pluginName = getSetting(settings, 'name', 'lokinet-shared')
+    pluginName = getSetting(settings, 'name', 'italonet-shared')
 
     kill = etree.SubElement(root, 'kill')
     kill.attrib['time'] = getSetting(settings, 'runFor', '600')
 
     baseDir = getSetting(settings, 'baseDir',
-                         os.path.join('/tmp', 'lokinet-shadow'))
+                         os.path.join('/tmp', 'italonet-shadow'))
 
     if not os.path.exists(baseDir):
         os.mkdir(baseDir)
@@ -133,7 +133,7 @@ def genconf(settings, outf):
 
 if __name__ == '__main__':
     settings = {
-        'baseDir': os.path.join("/tmp", "lokinet-shadow"),
+        'baseDir': os.path.join("/tmp", "italonet-shadow"),
         'topology': os.path.join(shadowRoot, 'share', 'topology.graphml.xml'),
         'runFor': '{}'.format(60 * 10 * 10)
     }

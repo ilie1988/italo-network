@@ -258,7 +258,7 @@ namespace llarp
     }
 
     static bool
-    is_localhost_loki(const dns::Message& msg)
+    is_localhost_italo(const dns::Message& msg)
     {
       return msg.questions[0].IsLocalhost();
     }
@@ -308,7 +308,7 @@ namespace llarp
           self->SendDNSReply(snode, s, msg, reply, true, isV6);
         });
       };
-      auto ReplyToLokiDNSWhenReady = [self = this, reply = reply](
+      auto ReplyToItaloDNSWhenReady = [self = this, reply = reply](
                                          service::Address addr, auto msg, bool isV6) -> bool {
         using service::Address;
         using service::OutboundContext;
@@ -320,7 +320,7 @@ namespace llarp
             2s);
       };
 
-      auto ReplyToLokiSRVWhenReady = [self = this, reply = reply](
+      auto ReplyToItaloSRVWhenReady = [self = this, reply = reply](
                                          service::Address addr, auto msg) -> bool {
         using service::Address;
         using service::OutboundContext;
@@ -353,7 +353,7 @@ namespace llarp
           auto replyMsg = std::make_shared<dns::Message>(clear_dns_message(msg));
           return ReplyToSNodeDNSWhenReady(addr, std::move(replyMsg), false);
         }
-        else if (answer.HasCNameForTLD(".loki"))
+        else if (answer.HasCNameForTLD(".italo"))
         {
           dns::Name_t qname;
           llarp_buffer_t buf(answer.rData);
@@ -365,7 +365,7 @@ namespace llarp
             return false;
 
           auto replyMsg = std::make_shared<dns::Message>(clear_dns_message(msg));
-          return ReplyToLokiDNSWhenReady(addr, replyMsg, false);
+          return ReplyToItaloDNSWhenReady(addr, replyMsg, false);
         }
       }
       if (msg.questions.size() != 1)
@@ -376,10 +376,10 @@ namespace llarp
       std::string qname = msg.questions[0].Name();
       const auto nameparts = split(qname, ".");
       std::string lnsName;
-      if (nameparts.size() >= 2 and ends_with(qname, ".loki"))
+      if (nameparts.size() >= 2 and ends_with(qname, ".italo"))
       {
         lnsName = nameparts[nameparts.size() - 2];
-        lnsName += ".loki"sv;
+        lnsName += ".italo"sv;
       }
       if (msg.questions[0].qtype == dns::qTypeTXT)
       {
@@ -442,8 +442,8 @@ namespace llarp
       {
         // mx record
         service::Address addr;
-        if (addr.FromString(qname, ".loki") || addr.FromString(qname, ".snode")
-            || is_random_snode(msg) || is_localhost_loki(msg))
+        if (addr.FromString(qname, ".italo") || addr.FromString(qname, ".snode")
+            || is_random_snode(msg) || is_localhost_italo(msg))
           msg.AddMXReply(qname, 1);
         else
           msg.AddNXReply();
@@ -474,7 +474,7 @@ namespace llarp
             msg.AddNXReply();
           }
         }
-        else if (is_localhost_loki(msg))
+        else if (is_localhost_italo(msg))
         {
           size_t counter = 0;
           context->ForEachService(
@@ -498,7 +498,7 @@ namespace llarp
         llarp::service::Address addr;
         if (isV6 && !SupportsV6())
         {  // empty reply but not a NXDOMAIN so that client can retry IPv4
-          msg.AddNSReply("localhost.loki.");
+          msg.AddNSReply("localhost.italo.");
         }
         // on MacOS this is a typeA query
         else if (is_random_snode(msg))
@@ -512,7 +512,7 @@ namespace llarp
           else
             msg.AddNXReply();
         }
-        else if (is_localhost_loki(msg))
+        else if (is_localhost_italo(msg))
         {
           const bool lookingForExit = msg.questions[0].Subdomains() == "exit";
           huint128_t ip = GetIfAddr();
@@ -542,7 +542,7 @@ namespace llarp
             msg.AddNXReply();
           }
         }
-        else if (addr.FromString(qname, ".loki"))
+        else if (addr.FromString(qname, ".italo"))
         {
           if (isV4 && SupportsV6())
           {
@@ -550,7 +550,7 @@ namespace llarp
           }
           else
           {
-            return ReplyToLokiDNSWhenReady(addr, std::make_shared<dns::Message>(msg), isV6);
+            return ReplyToItaloDNSWhenReady(addr, std::make_shared<dns::Message>(msg), isV6);
           }
         }
         else if (addr.FromString(qname, ".snode"))
@@ -574,7 +574,7 @@ namespace llarp
                lnsName,
                isV6,
                reply,
-               ReplyToLokiDNSWhenReady](auto maybe) {
+               ReplyToItaloDNSWhenReady](auto maybe) {
                 if (not maybe.has_value())
                 {
                   LogWarn(name, " lns name ", lnsName, " not resolved");
@@ -583,7 +583,7 @@ namespace llarp
                   return;
                 }
                 LogInfo(name, " ", lnsName, " resolved to ", maybe->ToString());
-                ReplyToLokiDNSWhenReady(*maybe, msg, isV6);
+                ReplyToItaloDNSWhenReady(*maybe, msg, isV6);
               });
         }
         else
@@ -608,10 +608,10 @@ namespace llarp
           reply(msg);
           return true;
         }
-        service::Address lokiAddr;
-        if (FindAddrForIP(lokiAddr, ip))
+        service::Address italoAddr;
+        if (FindAddrForIP(italoAddr, ip))
         {
-          msg.AddAReply(lokiAddr.ToString());
+          msg.AddAReply(italoAddr.ToString());
           reply(msg);
           return true;
         }
@@ -623,17 +623,17 @@ namespace llarp
       {
         llarp::service::Address addr;
 
-        if (is_localhost_loki(msg))
+        if (is_localhost_italo(msg))
         {
           msg.AddSRVReply(introSet().GetMatchingSRVRecords(msg.questions[0].Subdomains()));
           reply(msg);
           return true;
         }
-        else if (addr.FromString(qname, ".loki"))
+        else if (addr.FromString(qname, ".italo"))
         {
           llarp::LogDebug("SRV request for: ", qname);
 
-          return ReplyToLokiSRVWhenReady(addr, std::make_shared<dns::Message>(msg));
+          return ReplyToItaloSRVWhenReady(addr, std::make_shared<dns::Message>(msg));
         }
       }
       else
@@ -663,8 +663,8 @@ namespace llarp
       llarp::service::Address addr;
       if (msg.questions.size() == 1)
       {
-        /// hook every .loki
-        if (msg.questions[0].HasTLD(".loki"))
+        /// hook every .italo
+        if (msg.questions[0].HasTLD(".italo"))
           return true;
         /// hook every .snode
         if (msg.questions[0].HasTLD(".snode"))
@@ -680,7 +680,7 @@ namespace llarp
       }
       for (const auto& answer : msg.answers)
       {
-        if (answer.HasCNameForTLD(".loki"))
+        if (answer.HasCNameForTLD(".italo"))
           return true;
         if (answer.HasCNameForTLD(".snode"))
           return true;
@@ -783,7 +783,7 @@ namespace llarp
             /// get packets from vpn
             while (not impl->writer.queue.empty())
             {
-              // queue it to be sent over lokinet
+              // queue it to be sent over italonet
               auto pkt = impl->writer.queue.popFront();
               if (running)
                 ep->m_UserToNetworkPktQueue.Emplace(pkt);

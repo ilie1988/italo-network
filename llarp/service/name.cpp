@@ -19,7 +19,7 @@ namespace llarp::service
   bool
   NameIsValid(std::string_view lnsName)
   {
-    // strip off .loki suffix
+    // strip off .italo suffix
     lnsName = lnsName.substr(0, lnsName.find_last_of('.'));
 
     // ensure chars are sane
@@ -44,7 +44,7 @@ namespace llarp::service
     // check against lns name blacklist
     if (primaryName == "localhost")
       return false;
-    if (primaryName == "loki")
+    if (primaryName == "italo")
       return false;
     if (primaryName == "snode")
       return false;

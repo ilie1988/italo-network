@@ -25,28 +25,28 @@ if [ -n "$WINDOWS_BUILD_NAME" ]; then
 fi
 
 if [ -n "$DRONE_TAG" ]; then
-    # For a tag build use something like `lokinet-linux-amd64-v1.2.3`
-    base="lokinet-$os-$DRONE_TAG"
+    # For a tag build use something like `italonet-linux-amd64-v1.2.3`
+    base="italonet-$os-$DRONE_TAG"
 else
     # Otherwise build a length name from the datetime and commit hash, such as:
-    # lokinet-linux-amd64-20200522T212342Z-04d7dcc54
-    base="lokinet-$os-$(date --date=@$DRONE_BUILD_CREATED +%Y%m%dT%H%M%SZ)-${DRONE_COMMIT:0:9}"
+    # italonet-linux-amd64-20200522T212342Z-04d7dcc54
+    base="italonet-$os-$(date --date=@$DRONE_BUILD_CREATED +%Y%m%dT%H%M%SZ)-${DRONE_COMMIT:0:9}"
 fi
 
 mkdir -v "$base"
-if [ -e daemon/lokinet.exe ]; then
-    cp -av lokinet-*.exe ../lokinet-bootstrap.ps1 "$base"
+if [ -e daemon/italonet.exe ]; then
+    cp -av italonet-*.exe ../italonet-bootstrap.ps1 "$base"
     # zipit up yo
     archive="$base.zip"
     zip -r "$archive" "$base"
 else
-    cp -av daemon/lokinet daemon/lokinet-vpn ../lokinet-bootstrap "$base"
+    cp -av daemon/italonet daemon/italonet-vpn ../italonet-bootstrap "$base"
     # tar dat shiz up yo
     archive="$base.tar.xz"
     tar cJvf "$archive" "$base"
 fi
 
-upload_to="builds.lokinet.dev/${DRONE_REPO// /_}/${DRONE_BRANCH// /_}"
+upload_to="builds.italonet.dev/${DRONE_REPO// /_}/${DRONE_BRANCH// /_}"
 
 # sftp doesn't have any equivalent to mkdir -p, so we have to split the above up into a chain of
 # -mkdir a/, -mkdir a/b/, -mkdir a/b/c/, ... commands.  The leading `-` allows the command to fail
@@ -60,7 +60,7 @@ for p in "${upload_dirs[@]}"; do
 -mkdir $dir_tmp"
 done
 
-sftp -i ssh_key -b - -o StrictHostKeyChecking=off drone@builds.lokinet.dev <<SFTP
+sftp -i ssh_key -b - -o StrictHostKeyChecking=off drone@builds.italonet.dev <<SFTP
 $mkdirs
 put $archive $upload_to
 SFTP

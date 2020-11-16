@@ -1,12 +1,12 @@
-#include "network_loki_lokinet_LokinetDaemon.h"
-#include "lokinet_jni_common.hpp"
-#include "lokinet_jni_vpnio.hpp"
+#include "network_italo_italonet_ItalonetDaemon.h"
+#include "italonet_jni_common.hpp"
+#include "italonet_jni_vpnio.hpp"
 #include <llarp.hpp>
 
 extern "C"
 {
   JNIEXPORT jobject JNICALL
-  Java_network_loki_lokinet_LokinetDaemon_Obtain(JNIEnv* env, jclass)
+  Java_network_italo_italonet_ItalonetDaemon_Obtain(JNIEnv* env, jclass)
   {
     auto* ptr = new llarp::Context();
     if (ptr == nullptr)
@@ -15,14 +15,14 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_network_loki_lokinet_LokinetDaemon_Free(JNIEnv* env, jclass, jobject buf)
+  Java_network_italo_italonet_ItalonetDaemon_Free(JNIEnv* env, jclass, jobject buf)
   {
     auto ptr = FromBuffer<llarp::Context>(env, buf);
     delete ptr;
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_network_loki_lokinet_LokinetDaemon_Configure(JNIEnv* env, jobject self, jobject conf)
+  Java_network_italo_italonet_ItalonetDaemon_Configure(JNIEnv* env, jobject self, jobject conf)
   {
     auto ptr = GetImpl<llarp::Context>(env, self);
     auto config = GetImpl<llarp::Config>(env, conf);
@@ -42,7 +42,7 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_network_loki_lokinet_LokinetDaemon_Mainloop(JNIEnv* env, jobject self)
+  Java_network_italo_italonet_ItalonetDaemon_Mainloop(JNIEnv* env, jobject self)
   {
     auto ptr = GetImpl<llarp::Context>(env, self);
     if (ptr == nullptr)
@@ -52,14 +52,14 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_network_loki_lokinet_LokinetDaemon_IsRunning(JNIEnv* env, jobject self)
+  Java_network_italo_italonet_ItalonetDaemon_IsRunning(JNIEnv* env, jobject self)
   {
     auto ptr = GetImpl<llarp::Context>(env, self);
     return (ptr != nullptr && ptr->IsUp()) ? JNI_TRUE : JNI_FALSE;
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_network_loki_lokinet_LokinetDaemon_Stop(JNIEnv* env, jobject self)
+  Java_network_italo_italonet_ItalonetDaemon_Stop(JNIEnv* env, jobject self)
   {
     auto ptr = GetImpl<llarp::Context>(env, self);
     if (ptr == nullptr)
@@ -72,10 +72,10 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_network_loki_lokinet_LokinetDaemon_InjectVPN(JNIEnv* env, jobject self, jobject vpn)
+  Java_network_italo_italonet_ItalonetDaemon_InjectVPN(JNIEnv* env, jobject self, jobject vpn)
   {
     auto ptr = GetImpl<llarp::Context>(env, self);
-    auto impl = GetImpl<lokinet_jni_vpnio>(env, vpn);
+    auto impl = GetImpl<italonet_jni_vpnio>(env, vpn);
     if (ptr == nullptr || impl == nullptr)
       return JNI_FALSE;
     if (impl->info.netmask == 0)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-keygen tool for lokinet
+keygen tool for italonet
 """
 
 from argparse import ArgumentParser as AP
@@ -29,7 +29,7 @@ def main():
         wfile.write(secret.encode())
         wfile.write(secret.verify_key.encode())
         wfile.write(b'e')
-    print("{}.loki".format(base32z(secret.verify_key.encode())))
+    print("{}.italo".format(base32z(secret.verify_key.encode())))
 
 if __name__ == '__main__':
     main()

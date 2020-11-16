@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/horizontal_page_margin"
-        android:text="VPN permissions are required for lokinet usage."
+        android:text="VPN permissions are required for italonet usage."
         />
 
     <Button

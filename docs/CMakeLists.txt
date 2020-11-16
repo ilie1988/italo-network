@@ -9,23 +9,23 @@ if (NOT DOXYGEN)
     return()
   endif()
   
-set(lokinet_doc_sources "${DOCS_SRC}")
-string(REPLACE ";" " " lokinet_doc_sources_spaced "${lokinet_doc_sources}")
+set(italonet_doc_sources "${DOCS_SRC}")
+string(REPLACE ";" " " italonet_doc_sources_spaced "${italonet_doc_sources}")
 
 add_custom_command(
     OUTPUT doxyxml/index.xml
     COMMAND ${DOXYGEN} Doxyfile
     DEPENDS
         ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-        ${lokinet_doc_sources}
+        ${italonet_doc_sources}
 )
 
 add_custom_command(
     OUTPUT html/index.html
     COMMAND ${SPHINX_BUILD}
-        -Dbreathe_projects.lokinet=${CMAKE_CURRENT_BINARY_DIR}/doxyxml
-        -Dversion=${lokinet_VERSION} -Drelease=${lokinet_VERSION}
-        -Aversion=${lokinet_VERSION} -Aversions=${lokinet_VERSION_MAJOR},${lokinet_VERSION_MINOR},${lokinet_VERSION_PATCH}
+        -Dbreathe_projects.italonet=${CMAKE_CURRENT_BINARY_DIR}/doxyxml
+        -Dversion=${italonet_VERSION} -Drelease=${italonet_VERSION}
+        -Aversion=${italonet_VERSION} -Aversions=${italonet_VERSION_MAJOR},${italonet_VERSION_MINOR},${italonet_VERSION_PATCH}
         -b html
         ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/html
     DEPENDS

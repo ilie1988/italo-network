@@ -11,11 +11,11 @@
 #define DEFAULT_RESOLVER_AU "1.1.1.1"
 #endif
 
-#ifndef DEFAULT_LOKINET_USER
-#define DEFAULT_LOKINET_USER "lokinet"
+#ifndef DEFAULT_ITALONET_USER
+#define DEFAULT_ITALONET_USER "italonet"
 #endif
-#ifndef DEFAULT_LOKINET_GROUP
-#define DEFAULT_LOKINET_GROUP "lokinet"
+#ifndef DEFAULT_ITALONET_GROUP
+#define DEFAULT_ITALONET_GROUP "italonet"
 #endif
 
 #endif

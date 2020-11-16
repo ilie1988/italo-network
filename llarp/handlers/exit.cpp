@@ -96,7 +96,7 @@ namespace llarp
       if (msg.questions[0].qtype == dns::qTypeA || msg.questions[0].qtype == dns::qTypeCNAME
           || msg.questions[0].qtype == dns::qTypeAAAA)
       {
-        if (msg.questions[0].IsName("localhost.loki"))
+        if (msg.questions[0].IsName("localhost.italo"))
           return true;
         if (msg.questions[0].HasTLD(".snode"))
           return true;
@@ -139,7 +139,7 @@ namespace llarp
           else
             msg.AddNXReply();
         }
-        else if (msg.questions[0].IsName("localhost.loki"))
+        else if (msg.questions[0].IsName("localhost.italo"))
         {
           RouterID us = m_Router->pubkey();
           msg.AddAReply(us.ToString(), 1);
@@ -165,7 +165,7 @@ namespace llarp
           reply(msg);
           return true;
         }
-        if (msg.questions[0].IsName("localhost.loki"))
+        if (msg.questions[0].IsName("localhost.italo"))
         {
           msg.AddINReply(GetIfAddr(), isV6);
           reply(msg);

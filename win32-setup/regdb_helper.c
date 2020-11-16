@@ -17,7 +17,7 @@
  * misrepresented as being the original software.
  * 3. This notice may not be removed or altered from any source distribution.
  *------------------------------------------------------------------------------
- * Shared object loaded by lokinet installer to properly detect the presence
+ * Shared object loaded by italonet installer to properly detect the presence
  * of the TAP v9 adapter
  * -rick
  */

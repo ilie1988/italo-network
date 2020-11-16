@@ -1,14 +1,14 @@
 # macos specific cpack stuff goes here
 
-# Here we build lokinet-network-control-panel into 'lokinet-gui.app' in "extra/" where a postinstall
+# Here we build italonet-network-control-panel into 'italonet-gui.app' in "extra/" where a postinstall
 # script will then move it to /Applications/.
 
-set(LOKINET_GUI_REPO "https://github.com/loki-project/loki-network-control-panel.git"
-    CACHE STRING "Can be set to override the default lokinet-gui git repository")
-set(LOKINET_GUI_CHECKOUT "origin/master"
-    CACHE STRING "Can be set to specify a particular branch or tag to build from LOKINET_GUI_REPO")
+set(ITALONET_GUI_REPO "https://github.com/italo-project/italo-network-control-panel.git"
+    CACHE STRING "Can be set to override the default italonet-gui git repository")
+set(ITALONET_GUI_CHECKOUT "origin/master"
+    CACHE STRING "Can be set to specify a particular branch or tag to build from ITALONET_GUI_REPO")
 set(MACOS_SIGN_APP ""  # FIXME: it doesn't use a Apple Distribution key because WTF knows.
-    CACHE STRING "enable codesigning of the stuff inside the .app and the lokinet binary -- use a 'Apple Distribution' key (or description) from `security find-identity -v`")
+    CACHE STRING "enable codesigning of the stuff inside the .app and the italonet binary -- use a 'Apple Distribution' key (or description) from `security find-identity -v`")
 set(MACOS_SIGN_PKG ""
     CACHE STRING "enable codesigning of the .pkg -- use a 'Developer ID Installer' key (or description) from `security find-identity -v`")
 set(MACOS_NOTARIZE_USER ""
@@ -20,22 +20,22 @@ set(MACOS_NOTARIZE_ASC ""
 
 include(ExternalProject)
 
-message(STATUS "Building LokinetGUI.app from ${LOKINET_GUI_REPO} @ ${LOKINET_GUI_CHECKOUT}")
+message(STATUS "Building ItalonetGUI.app from ${ITALONET_GUI_REPO} @ ${ITALONET_GUI_CHECKOUT}")
 
-ExternalProject_Add(lokinet-gui
-    GIT_REPOSITORY "${LOKINET_GUI_REPO}"
-    GIT_TAG "${LOKINET_GUI_CHECKOUT}"
+ExternalProject_Add(italonet-gui
+    GIT_REPOSITORY "${ITALONET_GUI_REPO}"
+    GIT_TAG "${ITALONET_GUI_CHECKOUT}"
     CMAKE_ARGS -DMACOS_APP=ON -DCMAKE_INSTALL_PREFIX=${PROJECT_BINARY_DIR} -DMACOS_SIGN=${MACOS_SIGN_APP}
         -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF
     )
 
 
 
-install(PROGRAMS ${CMAKE_SOURCE_DIR}/contrib/macos/lokinet_uninstall.sh
+install(PROGRAMS ${CMAKE_SOURCE_DIR}/contrib/macos/italonet_uninstall.sh
         DESTINATION "bin/"
-        COMPONENT lokinet)
+        COMPONENT italonet)
 
-install(DIRECTORY ${PROJECT_BINARY_DIR}/LokinetGUI.app
+install(DIRECTORY ${PROJECT_BINARY_DIR}/ItalonetGUI.app
         DESTINATION "../../Applications"
         USE_SOURCE_PERMISSIONS
         COMPONENT gui
@@ -43,22 +43,22 @@ install(DIRECTORY ${PROJECT_BINARY_DIR}/LokinetGUI.app
         )
 
 # copy files that will be later moved by the postinstall script to proper locations
-install(FILES ${CMAKE_SOURCE_DIR}/contrib/macos/lokinet_macos_daemon_script.sh
-              ${CMAKE_SOURCE_DIR}/contrib/macos/network.loki.lokinet.daemon.plist
+install(FILES ${CMAKE_SOURCE_DIR}/contrib/macos/italonet_macos_daemon_script.sh
+              ${CMAKE_SOURCE_DIR}/contrib/macos/network.italo.italonet.daemon.plist
         DESTINATION "extra/"
-        COMPONENT lokinet)
+        COMPONENT italonet)
 
-set(CPACK_COMPONENTS_ALL lokinet gui)
+set(CPACK_COMPONENTS_ALL italonet gui)
 
-set(CPACK_COMPONENT_LOKINET_DISPLAY_NAME "Lokinet Service")
-set(CPACK_COMPONENT_LOKINET_DESCRIPTION "Main Lokinet runtime service, managed by Launchd")
+set(CPACK_COMPONENT_ITALONET_DISPLAY_NAME "Italonet Service")
+set(CPACK_COMPONENT_ITALONET_DESCRIPTION "Main Italonet runtime service, managed by Launchd")
 
-set(CPACK_COMPONENT_GUI_DISPLAY_NAME "Lokinet GUI")
-set(CPACK_COMPONENT_GUI_DESCRIPTION "Small GUI which provides stats and limited runtime control of the Lokinet service. Resides in the system tray.")
+set(CPACK_COMPONENT_GUI_DISPLAY_NAME "Italonet GUI")
+set(CPACK_COMPONENT_GUI_DESCRIPTION "Small GUI which provides stats and limited runtime control of the Italonet service. Resides in the system tray.")
 
 set(CPACK_GENERATOR "productbuild")
-set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/lokinet")
-set(CPACK_POSTFLIGHT_LOKINET_SCRIPT ${CMAKE_SOURCE_DIR}/contrib/macos/postinstall)
+set(CPACK_PACKAGING_INSTALL_PREFIX "/opt/italonet")
+set(CPACK_POSTFLIGHT_ITALONET_SCRIPT ${CMAKE_SOURCE_DIR}/contrib/macos/postinstall)
 
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE.txt")
 
@@ -66,9 +66,9 @@ set(CPACK_PRODUCTBUILD_IDENTITY_NAME "${MACOS_SIGN_PKG}")
 
 if(MACOS_SIGN_APP)
     add_custom_target(sign ALL
-        echo "Signing lokinet and lokinet-vpn binaries"
-        COMMAND codesign -s "${MACOS_SIGN_APP}" --strict --options runtime --force -vvv $<TARGET_FILE:lokinet> $<TARGET_FILE:lokinet-vpn>
-        DEPENDS lokinet lokinet-vpn
+        echo "Signing italonet and italonet-vpn binaries"
+        COMMAND codesign -s "${MACOS_SIGN_APP}" --strict --options runtime --force -vvv $<TARGET_FILE:italonet> $<TARGET_FILE:italonet-vpn>
+        DEPENDS italonet italonet-vpn
         )
 endif()
 

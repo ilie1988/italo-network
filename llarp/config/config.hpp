@@ -23,7 +23,7 @@
 #include <vector>
 #include <unordered_set>
 
-#include <lokimq/address.h>
+#include <italomq/address.h>
 
 namespace llarp
 {
@@ -153,11 +153,11 @@ namespace llarp
     defineConfigOptions(ConfigDefinition& conf, const ConfigGenParameters& params);
   };
 
-  struct LokidConfig
+  struct ItalodConfig
   {
     bool whitelistRouters = false;
     fs::path ident_keyfile;
-    lokimq::address lokidRPCAddr;
+    italomq::address italodRPCAddr;
 
     void
     defineConfigOptions(ConfigDefinition& conf, const ConfigGenParameters& params);
@@ -193,7 +193,7 @@ namespace llarp
     DnsConfig dns;
     LinksConfig links;
     ApiConfig api;
-    LokidConfig lokid;
+    ItalodConfig italod;
     BootstrapConfig bootstrap;
     LoggingConfig logging;
 

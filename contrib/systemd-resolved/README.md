@@ -1,4 +1,4 @@
-To be put at `/usr/lib/systemd/resolved.conf.d/lokinet.conf` for distro use and `/etc/systemd/resolved.conf.d/lokinet.conf` for local admin use.
+To be put at `/usr/lib/systemd/resolved.conf.d/italonet.conf` for distro use and `/etc/systemd/resolved.conf.d/italonet.conf` for local admin use.
 
 To make use of it:
 ```

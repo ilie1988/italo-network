@@ -3,28 +3,28 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>network.loki.lokinet.daemon</string>
+	<string>network.italo.italonet.daemon</string>
 
 	<key>ProgramArguments</key>
 	<array>
-		<string>/var/lib/lokinet/lokinet_macos_daemon_script.sh</string>
+		<string>/var/lib/italonet/italonet_macos_daemon_script.sh</string>
 	</array>
 
-	<!-- Keep Lokinet alive unless magic file exists -->
+	<!-- Keep Italonet alive unless magic file exists -->
 	<key>KeepAlive</key>
 	<dict>
 		<key>PathState</key>
 		<dict>
-			<key>/var/lib/lokinet/suspend-launchd-service</key>
+			<key>/var/lib/italonet/suspend-launchd-service</key>
 			<false/>
 		</dict>
 	</dict>
 
 	<key>StandardOutPath</key>
-    <string>/var/lib/lokinet/stdout</string>
+    <string>/var/lib/italonet/stdout</string>
 
     <key>StandardErrorPath</key>
-    <string>/var/lib/lokinet/stderr</string>
+    <string>/var/lib/italonet/stderr</string>
 	
 </dict>
 </plist>

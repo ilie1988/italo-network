@@ -1,5 +1,5 @@
 if (WITH_HIVE)
-  add_custom_target(hive_build DEPENDS liblokinet pyllarp)
+  add_custom_target(hive_build DEPENDS libitalonet pyllarp)
   add_custom_target(hive ${CMAKE_COMMAND} -E
       env PYTHONPATH="$ENV{PYTHONPATH}:${CMAKE_BINARY_DIR}/pybind"
       ${PYTHON_EXECUTABLE} -m pytest
@@ -43,7 +43,7 @@ add_executable(testAll
     util/thread/test_llarp_util_queue.cpp
 )
 
-target_link_libraries(testAll PUBLIC gmock gtest liblokinet)
+target_link_libraries(testAll PUBLIC gmock gtest libitalonet)
 target_include_directories(testAll PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 if(WIN32)
@@ -80,7 +80,7 @@ add_executable(catchAll
   test_llarp_router_contact.cpp
   check_main.cpp)
 
-target_link_libraries(catchAll PUBLIC liblokinet Catch2::Catch2)
+target_link_libraries(catchAll PUBLIC libitalonet Catch2::Catch2)
 target_include_directories(catchAll PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Custom targets to invoke the different test suites:

@@ -280,7 +280,7 @@ namespace llarp
     constexpr static char derived_key_hash_str[161] =
         "just imagine what would happen if we all decided to understand. you "
         "can't in the and by be or then before so just face it this text hurts "
-        "to read? lokinet yolo!";
+        "to read? italonet yolo!";
 
     template <typename K>
     static bool

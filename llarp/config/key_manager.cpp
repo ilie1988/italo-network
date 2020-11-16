@@ -80,7 +80,7 @@ namespace llarp
       }
     }
 
-    if (not config.lokid.whitelistRouters)
+    if (not config.italod.whitelistRouters)
     {
       // load identity key or create if needed
       auto identityKeygen = [](llarp::SecretKey& key) {

@@ -1,6 +1,6 @@
 include(Version)
 
-add_library(lokinet-util
+add_library(italonet-util
   ${CMAKE_CURRENT_BINARY_DIR}/constants/version.cpp
   util/bencode.cpp
   util/buffer.cpp
@@ -15,7 +15,7 @@ add_library(lokinet-util
   util/logging/ostream_logger.cpp
   util/logging/syslog_logger.cpp
   util/logging/win32_logger.cpp
-  util/lokinet_init.c
+  util/italonet_init.c
   util/mem.cpp
   util/printer.cpp
   util/str.cpp
@@ -24,9 +24,9 @@ add_library(lokinet-util
   util/thread/threading.cpp
   util/time.cpp
 )
-add_dependencies(lokinet-util genversion)
+add_dependencies(italonet-util genversion)
 
-target_include_directories(lokinet-util PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(italonet-util PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${PROJECT_SOURCE_DIR}/include)
 
 if(NOT TARGET sqlite3)
   add_library(sqlite3 INTERFACE)
@@ -34,20 +34,20 @@ if(NOT TARGET sqlite3)
   target_link_libraries(sqlite3 INTERFACE PkgConfig::SQLITE3)
 endif()
 
-target_link_libraries(lokinet-util PUBLIC
-  lokinet-cryptography
+target_link_libraries(italonet-util PUBLIC
+  italonet-cryptography
   nlohmann_json::nlohmann_json
   filesystem
   date::date
-  lokimq
+  italomq
   sqlite3
 )
 
 if(ANDROID)
-  target_link_libraries(lokinet-util PUBLIC log)
+  target_link_libraries(italonet-util PUBLIC log)
 endif()
 
-add_library(lokinet-platform
+add_library(italonet-platform
 # for networking
   ev/ev.cpp
   ev/pipe.cpp
@@ -64,37 +64,37 @@ add_library(lokinet-platform
   $<TARGET_OBJECTS:tuntap>
 )
 
-target_link_libraries(lokinet-platform PUBLIC lokinet-cryptography lokinet-util Threads::Threads base_libs libuv)
+target_link_libraries(italonet-platform PUBLIC italonet-cryptography italonet-util Threads::Threads base_libs libuv)
 
 
 if (ANDROID)
-  target_sources(lokinet-platform PRIVATE android/ifaddrs.c)
+  target_sources(italonet-platform PRIVATE android/ifaddrs.c)
 endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
-  target_sources(lokinet-platform PRIVATE linux/netns.cpp)
+  target_sources(italonet-platform PRIVATE linux/netns.cpp)
 
   if(NON_PC_TARGET)
     add_import_library(rt)
-    target_link_libraries(lokinet-platform PUBLIC rt)
+    target_link_libraries(italonet-platform PUBLIC rt)
   endif()
 endif()
 
 if (WIN32)
-  target_sources(lokinet-platform PRIVATE
+  target_sources(italonet-platform PRIVATE
     ev/ev_libuv.cpp
     ev/ev_win32.cpp
     win32/win32_inet.c
     win32/win32_intrnl.c)
 
-  target_link_libraries(lokinet-platform PUBLIC iphlpapi)
+  target_link_libraries(italonet-platform PUBLIC iphlpapi)
 endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
-  target_include_directories(lokinet-platform SYSTEM PUBLIC /usr/local/include)
+  target_include_directories(italonet-platform SYSTEM PUBLIC /usr/local/include)
 endif()
 
-add_library(liblokinet
+add_library(libitalonet
   config/config.cpp
   config/definition.cpp
   config/ini.cpp
@@ -186,7 +186,7 @@ add_library(liblokinet
   routing/path_latency_message.cpp
   routing/path_transfer_message.cpp
   routing/transfer_traffic_message.cpp
-  rpc/lokid_rpc_client.cpp
+  rpc/italod_rpc_client.cpp
   rpc/rpc_server.cpp
   rpc/endpoint_rpc.cpp
   service/address.cpp
@@ -211,41 +211,41 @@ add_library(liblokinet
   service/tag.cpp
 )
 
-set_target_properties(liblokinet PROPERTIES OUTPUT_NAME lokinet)
+set_target_properties(libitalonet PROPERTIES OUTPUT_NAME italonet)
 
-enable_lto(lokinet-util lokinet-platform liblokinet)
+enable_lto(italonet-util italonet-platform libitalonet)
   
 if(TRACY_ROOT)
-  target_sources(liblokinet PRIVATE ${TRACY_ROOT}/TracyClient.cpp)
+  target_sources(libitalonet PRIVATE ${TRACY_ROOT}/TracyClient.cpp)
 endif()
 
 if(TESTNET)
-  target_sources(liblokinet PRIVATE testnet.c)
+  target_sources(libitalonet PRIVATE testnet.c)
 endif()
 
 if(WITH_HIVE)
-  target_sources(liblokinet PRIVATE
+  target_sources(libitalonet PRIVATE
     tooling/router_hive.cpp
     tooling/hive_router.cpp
     tooling/hive_context.cpp
   )
 endif()
 
-target_link_libraries(liblokinet PUBLIC cxxopts lokinet-platform lokinet-util lokinet-cryptography)
-target_link_libraries(liblokinet PRIVATE libunbound)
+target_link_libraries(libitalonet PUBLIC cxxopts italonet-platform italonet-util italonet-cryptography)
+target_link_libraries(libitalonet PRIVATE libunbound)
 
 
 if(BUILD_SHARED_LIBS)
   include(GNUInstallDirs)
 
-  install(TARGETS lokinet-util lokinet-platform liblokinet LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+  install(TARGETS italonet-util italonet-platform libitalonet LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
   if(WIN32)
-    target_link_libraries(liblokinet PUBLIC ws2_32 iphlpapi)
+    target_link_libraries(libitalonet PUBLIC ws2_32 iphlpapi)
   endif()
 endif()
 
-foreach(lokinet_lib liblokinet lokinet-platform lokinet-util lokinet-cryptography)
-  add_log_tag(${lokinet_lib})
+foreach(italonet_lib libitalonet italonet-platform italonet-util italonet-cryptography)
+  add_log_tag(${italonet_lib})
 endforeach()
 
 file(GLOB_RECURSE docs_SRC */*.hpp *.hpp)

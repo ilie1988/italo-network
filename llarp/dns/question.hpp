@@ -40,7 +40,7 @@ namespace llarp
       bool
       IsName(const std::string& other) const;
 
-      /// is the name [something.]localhost.loki. ?
+      /// is the name [something.]localhost.italo. ?
       bool
       IsLocalhost() const;
 

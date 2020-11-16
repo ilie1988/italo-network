@@ -130,7 +130,7 @@ LLARP - Low Latency Anon Routing Protocol
 	addition I2P isn't staffed for such attacks either.
 	
 	
-	This is a hard problem to solve that the Loki network may be able to help
+	This is a hard problem to solve that the Italo network may be able to help
        with by creating a financial barrier to running multiple a relays.
 	
 	

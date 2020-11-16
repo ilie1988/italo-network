@@ -1,5 +1,5 @@
-#ifndef LOKINET_JNI_VPNIO_HPP
-#define LOKINET_JNI_VPNIO_HPP
+#ifndef ITALONET_JNI_VPNIO_HPP
+#define ITALONET_JNI_VPNIO_HPP
 
 #include <llarp.h>
 #include <memory>
@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <jni.h>
 
-namespace lokinet
+namespace italonet
 {
   struct VPNIO
   {
@@ -127,9 +127,9 @@ namespace lokinet
       std::copy_n(val.data(), sz, info.ifaddr);
     }
   };
-}  // namespace lokinet
+}  // namespace italonet
 
-struct lokinet_jni_vpnio : public lokinet::VPNIO
+struct italonet_jni_vpnio : public italonet::VPNIO
 {
   void
   InjectSuccess() override

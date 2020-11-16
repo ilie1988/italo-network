@@ -6,9 +6,9 @@ struct ServiceAddressTest : public ::testing::Test
 {
   const std::string snode =
       "8zfiwpgonsu5zpddpxwdurxyb19x6r96xy4qbikff99jwsziws9y.snode";
-  const std::string loki =
-      "7okic5x5do3uh3usttnqz9ek3uuoemdrwzto1hciwim9f947or6y.loki";
-  const std::string sub = "lokinet.test";
+  const std::string italo =
+      "7okic5x5do3uh3usttnqz9ek3uuoemdrwzto1hciwim9f947or6y.italo";
+  const std::string sub = "italonet.test";
   const std::string invalid =
       "7okic5x5do3uh3usttnqz9ek3uuoemdrwzto1hciwim9f947or6y.net";
 };
@@ -23,36 +23,36 @@ TEST_F(ServiceAddressTest, TestParseBadTLD)
 TEST_F(ServiceAddressTest, TestParseBadTLDAppenedOnEnd)
 {
   llarp::service::Address addr;
-  const std::string bad = loki + ".net";
+  const std::string bad = italo + ".net";
   ASSERT_FALSE(addr.FromString(bad, ".net"));
 }
 
 TEST_F(ServiceAddressTest, TestParseBadTLDAppenedOnEndWithSubdomain)
 {
   llarp::service::Address addr;
-  const std::string bad = sub + "." + loki + ".net";
+  const std::string bad = sub + "." + italo + ".net";
   ASSERT_FALSE(addr.FromString(bad, ".net"));
 }
 
-TEST_F(ServiceAddressTest, TestParseSNodeNotLoki)
+TEST_F(ServiceAddressTest, TestParseSNodeNotItalo)
 {
   llarp::service::Address addr;
   ASSERT_TRUE(addr.FromString(snode, ".snode"));
-  ASSERT_FALSE(addr.FromString(snode, ".loki"));
+  ASSERT_FALSE(addr.FromString(snode, ".italo"));
 }
 
-TEST_F(ServiceAddressTest, TestParseLokiNotSNode)
+TEST_F(ServiceAddressTest, TestParseItaloNotSNode)
 {
   llarp::service::Address addr;
-  ASSERT_FALSE(addr.FromString(loki, ".snode"));
-  ASSERT_TRUE(addr.FromString(loki, ".loki"));
+  ASSERT_FALSE(addr.FromString(italo, ".snode"));
+  ASSERT_TRUE(addr.FromString(italo, ".italo"));
 }
 
-TEST_F(ServiceAddressTest, TestParseLokiWithSubdomain)
+TEST_F(ServiceAddressTest, TestParseItaloWithSubdomain)
 {
   llarp::service::Address addr;
-  const std::string addr_str = sub + "." + loki;
-  ASSERT_TRUE(addr.FromString(addr_str, ".loki"));
+  const std::string addr_str = sub + "." + italo;
+  ASSERT_TRUE(addr.FromString(addr_str, ".italo"));
   ASSERT_EQ(addr.subdomain, sub);
   ASSERT_EQ(addr.ToString(), addr_str);
 };

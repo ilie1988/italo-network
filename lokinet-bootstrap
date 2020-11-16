@@ -9,15 +9,15 @@ NC='\033[0m' # No Color
 set -e
 
 helpme=
-default_mainnet=https://seed.lokinet.org/lokinet.signed
-default_testnet=https://seed.lokinet.org/testnet.signed
-default_dest="$HOME/.lokinet/bootstrap.signed"
+default_mainnet=https://seed.italonet.org/italonet.signed
+default_testnet=https://seed.italonet.org/testnet.signed
+default_dest="$HOME/.italonet/bootstrap.signed"
 
 if [ "$#" -gt 2 ]; then
   helpme=y
 fi
 
-if [ -z "$1" ] || [ "$1" == "mainnet" ] || [ "$1" == "lokinet" ]; then
+if [ -z "$1" ] || [ "$1" == "mainnet" ] || [ "$1" == "italonet" ]; then
   url="${default_mainnet}"
 elif [ "$1" == "testnet" ]; then
   url="${default_testnet}"
@@ -36,9 +36,9 @@ else
 fi
 
 if [ -n "$helpme" ]; then
-  echo "Usage: $0 [URL [DEST]] -- download bootstrap file from URL (default: lokinet) and save to DEST (default: $default_dest)."
-  echo "URL can be a full URL, or else 'lokinet' or 'testnet' to use the default lokinet/testnet seed URL.  'mainnet' can be used"
-  echo "as an alias for 'lokinet'."
+  echo "Usage: $0 [URL [DEST]] -- download bootstrap file from URL (default: italonet) and save to DEST (default: $default_dest)."
+  echo "URL can be a full URL, or else 'italonet' or 'testnet' to use the default italonet/testnet seed URL.  'mainnet' can be used"
+  echo "as an alias for 'italonet'."
   exit 1
 fi
 
@@ -57,7 +57,7 @@ tmp=/tmp/bootstrap.tmp
 # Rick also had indicated most BSDs have curl too
 if curl -fsSL "$url" >"$tmp"; then
   mv "$tmp" "$dest"
-  echo -e "${GREEN}lokinet successfully bootstrapped${NC}"
+  echo -e "${GREEN}italonet successfully bootstrapped${NC}"
 else
   echo -e "${RED}failed to download bootstrap from $url${NC}"
   rm -f "$tmp"

@@ -1,11 +1,11 @@
-#include <util/lokinet_init.h>
+#include <util/italonet_init.h>
 #if defined(_WIN32)
 #include <windows.h>
 #include <winuser.h>
 #include <stdio.h>
 
 int
-Lokinet_INIT(void)
+Italonet_INIT(void)
 {
   static const char*(CDECL * pwine_get_version)(void);
   HMODULE hntdll = GetModuleHandle("ntdll.dll");
@@ -15,7 +15,7 @@ Lokinet_INIT(void)
     if (pwine_get_version)
     {
       static const char* text =
-          "dont run lokinet in wine like wtf man we support linux and pretty "
+          "dont run italonet in wine like wtf man we support linux and pretty "
           "much every flavour of BSD, and even some flavours of unix system "
           "5.x.\nThis Program Will now crash lmao.";
       static const char* title = "srsly fam wtf";
@@ -27,7 +27,7 @@ Lokinet_INIT(void)
 }
 #else
 int
-Lokinet_INIT(void)
+Italonet_INIT(void)
 {
   return 0;
 }

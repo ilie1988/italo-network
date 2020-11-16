@@ -1,13 +1,13 @@
 [Unit]
-Description=LokiNET: Anonymous Network layer thingydoo.
+Description=ItaloNET: Anonymous Network layer thingydoo.
 Wants=network-online.target
 After=network-online.target
 
 [Service]
-User=debian-lokinet
-SyslogIdentifier=lokinet
-ExecStartPre=/bin/bash -c "/usr/bin/lokinet-bootstrap && /usr/bin/lokinet -g"
-ExecStart=/usr/bin/lokinet
+User=debian-italonet
+SyslogIdentifier=italonet
+ExecStartPre=/bin/bash -c "/usr/bin/italonet-bootstrap && /usr/bin/italonet -g"
+ExecStart=/usr/bin/italonet
 Restart=always
 
 [Install]

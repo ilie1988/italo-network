@@ -146,7 +146,7 @@ TEST_F(KeyManagerTest, TestInitialize_DetectsBadRcFile)
   llarp::Config conf{fs::current_path()};
   conf.Load();
   
-  conf.lokid.whitelistRouters = false;
+  conf.italod.whitelistRouters = false;
 
   std::fstream f;
   f.open(our_rc_filename, std::ios::out);

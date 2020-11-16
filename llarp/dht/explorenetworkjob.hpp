@@ -17,7 +17,7 @@ namespace llarp
       bool
       Validate(const RouterID&) const override
       {
-        // TODO: check with lokid
+        // TODO: check with italod
         return true;
       }
 

@@ -1,5 +1,5 @@
 #include "handler.hpp"
-#include "lokinet-config.hpp"
+#include "italonet-config.hpp"
 
 #include <getopt.h>
 #include <string_view>
@@ -18,10 +18,10 @@ main(int argc, char* argv[])
 {
   bool RunCron = false;
 
-  const char* confFile = lokinet::bootserv::Config::DefaultPath;
-  lokinet::bootserv::Config config;
+  const char* confFile = italonet::bootserv::Config::DefaultPath;
+  italonet::bootserv::Config config;
 
-  lokinet::bootserv::Handler_ptr handler;
+  italonet::bootserv::Handler_ptr handler;
 
   option longopts[] = {{"cron", no_argument, 0, 'C'},
                        {"help", no_argument, 0, 'h'},
@@ -45,9 +45,9 @@ main(int argc, char* argv[])
     }
   }
   if(RunCron)
-    handler = lokinet::bootserv::NewCronHandler(std::cout);
+    handler = italonet::bootserv::NewCronHandler(std::cout);
   else
-    handler = lokinet::bootserv::NewCGIHandler(std::cout);
+    handler = italonet::bootserv::NewCGIHandler(std::cout);
 
   if(!config.LoadFile(confFile))
   {

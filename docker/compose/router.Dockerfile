@@ -1,6 +1,6 @@
 FROM compose-base:latest
 
-COPY ./docker/compose/router.ini /root/.lokinet/lokinet.ini
+COPY ./docker/compose/router.ini /root/.italonet/italonet.ini
 
-CMD ["/lokinet"]
+CMD ["/italonet"]
 EXPOSE 1090/udp 1190/tcp

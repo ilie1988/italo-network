@@ -1,4 +1,4 @@
-Place in `/etc/NetworkManager/dnsmasq.d/lokinet.conf`.
+Place in `/etc/NetworkManager/dnsmasq.d/italonet.conf`.
 
 To make use of this, first install dnsmasq.
 

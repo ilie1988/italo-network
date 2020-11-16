@@ -169,7 +169,7 @@ RC.i is set to the network identifier.
 only routers with the same network identifier may connect to each other.
 
 "testnet" for testnet.
-"lokinet" for the "official" lokinet mainline network.
+"italonet" for the "official" italonet mainline network.
 
 other values of RC.i indicate the router belongs to a network fork.
 
@@ -199,7 +199,7 @@ the "network address" of a hidden service, which is computed as the blake2b
 
 HS(BE(SI))
 
-when in string form it's encoded with z-base32 and uses the .loki tld
+when in string form it's encoded with z-base32 and uses the .italo tld
 
 introduction (I)
 
@@ -252,7 +252,7 @@ each service is a 7 item long, list of the following:
 
 with the corrisponding SRV record: 
 
-<_service>.<_proto>.<service_address>.loki. <ttl_uint> IN SRV <priority_uint> <weight_uint> <port_uint> <SA of sub service>.loki.
+<_service>.<_proto>.<service_address>.italo. <ttl_uint> IN SRV <priority_uint> <weight_uint> <port_uint> <SA of sub service>.italo.
 
 recursion on SRV records is NOT permitted.
 

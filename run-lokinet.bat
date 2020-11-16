@@ -1,8 +1,8 @@
 REM set up config
-lokinet -g
+italonet -g
 
 REM bootstrap network
-lokinet-bootstrap
+italonet-bootstrap
 
-REM run lokinet
-lokinet
+REM run italonet
+italonet

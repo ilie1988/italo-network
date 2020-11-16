@@ -16,7 +16,7 @@ namespace llarp::rpc
 
   /// maybe parse json from message paramter at index
   std::optional<nlohmann::json>
-  MaybeParseJSON(const lokimq::Message& msg, size_t index = 0)
+  MaybeParseJSON(const italomq::Message& msg, size_t index = 0)
   {
     try
     {
@@ -54,7 +54,7 @@ namespace llarp::rpc
 
   void
   HandleJSONRequest(
-      lokimq::Message& msg, std::function<void(nlohmann::json, ReplyFunction_t)> handleRequest)
+      italomq::Message& msg, std::function<void(nlohmann::json, ReplyFunction_t)> handleRequest)
   {
     const auto maybe = MaybeParseJSON(msg);
     if (not maybe.has_value())
@@ -81,13 +81,13 @@ namespace llarp::rpc
   }
 
   void
-  RpcServer::AsyncServeRPC(lokimq::address url)
+  RpcServer::AsyncServeRPC(italomq::address url)
   {
     m_LMQ->listen_plain(url.zmq_address());
-    m_LMQ->add_category("llarp", lokimq::AuthLevel::none)
+    m_LMQ->add_category("llarp", italomq::AuthLevel::none)
         .add_command(
             "halt",
-            [&](lokimq::Message& msg) {
+            [&](italomq::Message& msg) {
               if (not m_Router->IsRunning())
               {
                 msg.send_reply(CreateJSONError("router is not running"));
@@ -98,14 +98,14 @@ namespace llarp::rpc
             })
         .add_request_command(
             "version",
-            [r = m_Router](lokimq::Message& msg) {
+            [r = m_Router](italomq::Message& msg) {
               util::StatusObject result{{"version", llarp::VERSION_FULL},
                                         {"uptime", to_json(r->Uptime())}};
               msg.send_reply(CreateJSONResponse(result));
             })
         .add_request_command(
             "status",
-            [&](lokimq::Message& msg) {
+            [&](italomq::Message& msg) {
               std::promise<util::StatusObject> result;
               LogicCall(m_Router->logic(), [&result, r = m_Router]() {
                 const auto state = r->ExtractStatus();
@@ -116,7 +116,7 @@ namespace llarp::rpc
             })
         .add_request_command(
             "exit",
-            [&](lokimq::Message& msg) {
+            [&](italomq::Message& msg) {
               HandleJSONRequest(msg, [r = m_Router](nlohmann::json obj, ReplyFunction_t reply) {
                 if (r->IsServiceNode())
                 {
@@ -225,7 +225,7 @@ namespace llarp::rpc
                             }
                             if (maybe->IsZero())
                             {
-                              reply(CreateJSONError("lokinet exit does not exist"));
+                              reply(CreateJSONError("italonet exit does not exist"));
                               return;
                             }
                             mapExit(*maybe);
@@ -260,7 +260,7 @@ namespace llarp::rpc
                     });
               });
             })
-        .add_request_command("config", [&](lokimq::Message& msg) {
+        .add_request_command("config", [&](italomq::Message& msg) {
           HandleJSONRequest(msg, [r = m_Router](nlohmann::json obj, ReplyFunction_t reply) {
             {
               const auto itr = obj.find("override");

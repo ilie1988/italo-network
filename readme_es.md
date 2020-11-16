@@ -1,23 +1,23 @@
-# Lokinet
+# Italonet
 
 [Ingles](readme.md)
 
-Lokinet es la implementación referente de LLARP (low latency anonymous routing protocol, protocolo de enrutado anónimo de baja latencia), un protocolo de enrutado onion de capa 3.
+Italonet es la implementación referente de LLARP (low latency anonymous routing protocol, protocolo de enrutado anónimo de baja latencia), un protocolo de enrutado onion de capa 3.
 
 Puede aprender a grandes razgos sobre el diseño de LLARP [aquí](docs/high-level.txt) , documento en idioma ingles.
 
 Y puede leer las especificaciones del protocolo [aquí](docs/proto_v0.txt) , documento técnico en idioma ingles.
 
-Puede ver la documentación, en ingles, de como empezar [aqui](https://loki-project.github.io/loki-docs/Lokinet/LokinetOverview/) .
+Puede ver la documentación, en ingles, de como empezar [aqui](https://italo-project.github.io/italo-docs/Italonet/ItalonetOverview/) .
 
-![build status](https://gitlab.com/lokiproject/loki-network/badges/master/pipeline.svg "build status")
-![travis-ci](https://travis-ci.org/loki-project/loki-network.svg?branch=master "ci status")
+![build status](https://gitlab.com/italoproject/italo-network/badges/master/pipeline.svg "build status")
+![travis-ci](https://travis-ci.org/italo-project/italo-network.svg?branch=master "ci status")
 
 ## Uso
 
-Vea, en ingles, [documentación](https://loki-project.github.io/loki-docs/Lokinet/LokinetOverview/) en como comenzar.
+Vea, en ingles, [documentación](https://italo-project.github.io/italo-docs/Italonet/ItalonetOverview/) en como comenzar.
 
-También lea, en ingles, [La guia de pruebas publicas](https://lokidocs.com/Lokinet/Guides/PublicTestingGuide/#1-lokinet-installation) para la instalación y mas información util.
+También lea, en ingles, [La guia de pruebas publicas](https://italodocs.com/Italonet/Guides/PublicTestingGuide/#1-italonet-installation) para la instalación y mas información util.
 
 ## Corriendo en Linux
 
@@ -25,40 +25,40 @@ También lea, en ingles, [La guia de pruebas publicas](https://lokidocs.com/Loki
 
 para ejecutar como cliente:
 
-    $ lokinet -g
-    $ lokinet-bootstrap
-    $ lokinet
+    $ italonet -g
+    $ italonet-bootstrap
+    $ italonet
 
 para correr un relay:
 
-    $ lokinet -r -g
-    $ lokinet-bootstrap
-    $ lokinet
+    $ italonet -r -g
+    $ italonet-bootstrap
+    $ italonet
 
 ## Corriendo en MacOS/UNIX/BSD
 
 **USTED TIENE QUE CORRER COMO ROOT**, correr usando sudo. Los privilegios elevados son necesarios para crear una interfaz de tunel virtual.
 
-El instalador de MAC coloca los binarios normales (`lokinet` y `lokinet-bootstrap`) en `/usr/local/bin` los que pudieran estar en ruta, asi que usted puede usar los binarios facilmente desde su terminal. El instalador tambien truena sus configuraciones y llaves previas, y descarga la semilla de arranque mas actual.
+El instalador de MAC coloca los binarios normales (`italonet` y `italonet-bootstrap`) en `/usr/local/bin` los que pudieran estar en ruta, asi que usted puede usar los binarios facilmente desde su terminal. El instalador tambien truena sus configuraciones y llaves previas, y descarga la semilla de arranque mas actual.
 
 para correr como cliente:
 
-    $ lokinet -g
-    $ lokinet-bootstrap
-    $ sudo lokinet
+    $ italonet -g
+    $ italonet-bootstrap
+    $ sudo italonet
 
 para correr como relay:
 
-    $ lokinet -r -g
-    $ lokinet-bootstrap
-    $ sudo lokinet
+    $ italonet -r -g
+    $ italonet-bootstrap
+    $ sudo italonet
 
 
 ## Corriendo en windows:
 
 **NO CORRER COMO USUARIO ELEVADO**, correr como un usuario normal.
 
-para correr como usuario, correr el archivo en lote `run-lokinet.bat` como su usuario normal.
+para correr como usuario, correr el archivo en lote `run-italonet.bat` como su usuario normal.
 
 
 ## Compilando
@@ -80,8 +80,8 @@ Requerimientos de compilación:
 compilando:
 
     $ sudo apt install build-essential cmake git libcap-dev curl libuv1-dev libsodium-dev pkg-config
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake .. -DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF -DSTATIC_LINK=ON
@@ -103,8 +103,8 @@ esto coloca el paquete compilado en `../`
 compilando:
     este seguro que usted tiene cmake y las herramientas de terminal de xcode ya instaladas
 
-    $ git clone https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake ..
@@ -119,12 +119,12 @@ instalando:
 compilar (donde `$ARCH` es su plataforma - `i686` or `x86_64`):
 
     $ pacman -Sy base-devel mingw-w64-$ARCH-toolchain git libtool autoconf mingw-w64-$ARCH-cmake
-    $ git clone https://github.com/loki-project/loki-network.git
-    $ cd loki-network
+    $ git clone https://github.com/italo-project/italo-network.git
+    $ cd italo-network
     $ mkdir -p build; cd build
     $ cmake .. -DCMAKE_BUILD_TYPE=[Debug|Release] -DSTATIC_LINK_RUNTIME=ON -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -G 'Unix Makefiles'
 
-instalando (con priviligios elevados) en `$PROGRAMFILES/lokinet` o `$ProgramFiles(x86)/lokinet`:
+instalando (con priviligios elevados) en `$PROGRAMFILES/italonet` o `$ProgramFiles(x86)/italonet`:
 
     $ make install
 
@@ -149,8 +149,8 @@ compilando:
     $ sudo pkg install build-essential gcc8 wget tuntap cmake (opcional: ninja ccache - de los extra de omnios) (OmniOS CE)
     $ sudo pkg install base-developer-utilities developer-gnu developer-studio-utilities gcc-7 wget cmake (Solaris de Oracle, ver notas)
     $ sudo pkg install build-essential wget gcc-8 documentation/tuntap header-tun tun (opcional: ninja ccache) (todos los demas SunOS)
-    $ git clone https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ gmake -j8
 
 instalando:
@@ -167,8 +167,8 @@ PENDIENTE: agregar instrucciones para pkgsrc
 compilando:
 
     # pkg_add curl cmake git (opcional: ninja ccache)
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake .. -DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF -DSTATIC_LINK=ON
@@ -183,8 +183,8 @@ instalando (root):
 compilando:
 
     $ pkg install cmake git curl libuv-1.27.0 libsodium
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake .. -DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF -DSTATIC_LINK=ON

@@ -533,7 +533,7 @@ namespace llarp
     while (num < 255)
     {
       std::stringstream ifname_ss;
-      ifname_ss << "lokitun" << num;
+      ifname_ss << "italotun" << num;
       std::string iftestname = ifname_ss.str();
       bool found = llarp_getifaddr(iftestname.c_str(), AF_INET, nullptr);
       if (!found)

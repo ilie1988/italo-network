@@ -1,11 +1,11 @@
-#include "network_loki_lokinet_LokinetConfig.h"
+#include "network_italo_italonet_ItalonetConfig.h"
 #include <llarp.hpp>
-#include "lokinet_jni_common.hpp"
+#include "italonet_jni_common.hpp"
 
 extern "C"
 {
   JNIEXPORT jobject JNICALL
-  Java_network_loki_lokinet_LokinetConfig_Obtain(JNIEnv* env, jclass)
+  Java_network_italo_italonet_ItalonetConfig_Obtain(JNIEnv* env, jclass)
   {
     auto conf = new llarp::Config();
     if (conf == nullptr)
@@ -14,14 +14,14 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_network_loki_lokinet_LokinetConfig_Free(JNIEnv* env, jclass, jobject buf)
+  Java_network_italo_italonet_ItalonetConfig_Free(JNIEnv* env, jclass, jobject buf)
   {
     auto ptr = FromBuffer<llarp::Config>(env, buf);
     delete ptr;
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_network_loki_lokinet_LokinetConfig_Load(JNIEnv* env, jobject self, jstring fname)
+  Java_network_italo_italonet_ItalonetConfig_Load(JNIEnv* env, jobject self, jstring fname)
   {
     auto conf = GetImpl<llarp::Config>(env, self);
     if (conf == nullptr)

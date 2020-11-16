@@ -19,10 +19,10 @@ def jsonrpc(method, **args):
 
 def exit_sessions_main():
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
-        print("graph_title lokinet exit sessions")
+        print("graph_title italonet exit sessions")
         print("graph_vlabel sessions")
         print("graph_category network")
-        print("graph_info This graph shows the number of exit sessions on a lokinet exit")
+        print("graph_info This graph shows the number of exit sessions on a italonet exit")
         print("_exit_sessions.info Number of exit sessions")
         print("_exit_sessions.label sessions")
     else:
@@ -37,16 +37,16 @@ def exit_sessions_main():
 
 def peers_main():
     if len(sys.argv) == 2 and sys.argv[1] == 'config':
-        print("graph_title lokinet peers")
+        print("graph_title italonet peers")
         print("graph_vlabel peers")
         print("graph_category network")
-        print("graph_info This graph shows the number of node to node sessions of this lokinet router")
-        print("_peers_outbound.info Number of outbound lokinet peers")
-        print("_peers_inbound.info Number of inbound lokinet peers")
+        print("graph_info This graph shows the number of node to node sessions of this italonet router")
+        print("_peers_outbound.info Number of outbound italonet peers")
+        print("_peers_inbound.info Number of inbound italonet peers")
         print("_peers_outbound.label outbound peers")
         print("_peers_inbound.label inbound peers")
-        print("_peers_clients.info Number of lokinet client peers")
-        print("_peers_clients.label lokinet client peers")
+        print("_peers_clients.info Number of italonet client peers")
+        print("_peers_clients.label italonet client peers")
     else:
         inbound = Dict(int)
         outbound = Dict(int)
@@ -70,10 +70,10 @@ def peers_main():
 
 if __name__ == '__main__':
     exe = os.path.basename(sys.argv[0]).lower()
-    if exe == 'lokinet_peers':
+    if exe == 'italonet_peers':
         peers_main()
-    elif exe == 'lokinet_exit':
+    elif exe == 'italonet_exit':
         exit_sessions_main()
     else:
         print(
-            'please symlink this as `lokinet_peers` or `lokinet_exit` in munin plugins dir')
+            'please symlink this as `italonet_peers` or `italonet_exit` in munin plugins dir')

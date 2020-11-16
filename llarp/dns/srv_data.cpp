@@ -22,8 +22,8 @@ namespace llarp::dns
       return false;
     }
 
-    // does target end in .loki?
-    size_t pos = target.find(".loki");
+    // does target end in .italo?
+    size_t pos = target.find(".italo");
     if (pos != std::string::npos && pos == (target.size() - 5))
     {
       return true;

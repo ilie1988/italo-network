@@ -1,9 +1,9 @@
 #include <dht/messages/findname.hpp>
-#include <lokimq/bt_serialize.h>
+#include <italomq/bt_serialize.h>
 #include <dht/context.hpp>
 #include <dht/messages/gotname.hpp>
 #include <router/abstractrouter.hpp>
-#include <rpc/lokid_rpc_client.hpp>
+#include <rpc/italod_rpc_client.hpp>
 #include <path/path_context.hpp>
 #include <routing/dht_message.hpp>
 
@@ -16,8 +16,8 @@ namespace llarp::dht
   bool
   FindNameMessage::BEncode(llarp_buffer_t* buf) const
   {
-    const auto data = lokimq::bt_serialize(
-        lokimq::bt_dict{{"A", "N"sv},
+    const auto data = italomq::bt_serialize(
+        italomq::bt_dict{{"A", "N"sv},
                         {"H", std::string_view{(char*)NameHash.data(), NameHash.size()}},
                         {"T", TxID}});
     return buf->write(data.begin(), data.end());

@@ -1,4 +1,4 @@
-# lokinet vanity address generator
+# italonet vanity address generator
 
 installing deps:
 
@@ -7,4 +7,4 @@ installing deps:
 
 to generate a nonce with a prefix `^7oki` using 8 cpu threads:
 
-    python3 lokinet-vanity.py keyfile.private 7oki 8
+    python3 italonet-vanity.py keyfile.private 7oki 8

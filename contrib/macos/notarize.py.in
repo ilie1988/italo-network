@@ -5,7 +5,7 @@ import plistlib
 import subprocess
 import time
 
-pkg = "lokinet-@PROJECT_VERSION@-Darwin.pkg"
+pkg = "italonet-@PROJECT_VERSION@-Darwin.pkg"
 userpass = ('--username', "@MACOS_NOTARIZE_USER@", '--password', "@MACOS_NOTARIZE_PASS@")
 print("Submitting {} for notarization; this may take a minute...".format(pkg))
 
@@ -13,7 +13,7 @@ started = time.time()
 result = subprocess.run([
     'xcrun', 'altool',
     '--notarize-app',
-    '--primary-bundle-id', 'org.lokinet.lokinet.pkg.@PROJECT_VERSION@',
+    '--primary-bundle-id', 'org.italonet.italonet.pkg.@PROJECT_VERSION@',
     *userpass,
     '--asc-provider', "@MACOS_NOTARIZE_ASC@",
     '--file', pkg,

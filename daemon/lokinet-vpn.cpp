@@ -1,4 +1,4 @@
-#include <lokimq/lokimq.h>
+#include <italomq/italomq.h>
 #include <nlohmann/json.hpp>
 #include <cxxopts.hpp>
 #include <future>
@@ -16,12 +16,12 @@
 #include <sys/wait.h>
 #endif
 
-/// do a lokimq request on an lmq instance blocking style
+/// do a italomq request on an lmq instance blocking style
 /// returns a json object parsed from the result
 std::optional<nlohmann::json>
 LMQ_Request(
-    lokimq::LokiMQ& lmq,
-    const lokimq::ConnectionID& id,
+    italomq::ItaloMQ& lmq,
+    const italomq::ConnectionID& id,
     std::string_view method,
     std::optional<nlohmann::json> args = std::nullopt)
 {
@@ -53,7 +53,7 @@ LMQ_Request(
 int
 main(int argc, char* argv[])
 {
-  cxxopts::Options opts("lokinet-vpn", "LokiNET vpn control utility");
+  cxxopts::Options opts("italonet-vpn", "ItaloNET vpn control utility");
 
   // clang-format off
   opts.add_options()
@@ -62,18 +62,18 @@ main(int argc, char* argv[])
     ("up", "put vpn up", cxxopts::value<bool>())
     ("down", "put vpn down", cxxopts::value<bool>())
     ("exit", "specify exit node address", cxxopts::value<std::string>())
-    ("rpc", "rpc url for lokinet", cxxopts::value<std::string>())
+    ("rpc", "rpc url for italonet", cxxopts::value<std::string>())
     ("endpoint", "endpoint to use", cxxopts::value<std::string>())
     ("token", "exit auth token to use", cxxopts::value<std::string>())
     ("auth", "exit auth token to use", cxxopts::value<std::string>())
     ("status", "print status and exit", cxxopts::value<bool>())
     ;
   // clang-format on
-  lokimq::address rpcURL("tcp://127.0.0.1:1190");
+  italomq::address rpcURL("tcp://127.0.0.1:1190");
   std::string exitAddress;
   std::string endpoint = "default";
   std::optional<std::string> token;
-  lokimq::LogLevel logLevel = lokimq::LogLevel::warn;
+  italomq::LogLevel logLevel = italomq::LogLevel::warn;
   bool goUp = false;
   bool goDown = false;
   bool printStatus = false;
@@ -89,11 +89,11 @@ main(int argc, char* argv[])
 
     if (result.count("verbose") > 0)
     {
-      logLevel = lokimq::LogLevel::debug;
+      logLevel = italomq::LogLevel::debug;
     }
     if (result.count("rpc") > 0)
     {
-      rpcURL = lokimq::address(result["rpc"].as<std::string>());
+      rpcURL = italomq::address(result["rpc"].as<std::string>());
     }
     if (result.count("exit") > 0)
     {
@@ -138,7 +138,7 @@ main(int argc, char* argv[])
     return 1;
   }
 
-  lokimq::LokiMQ lmq{[](lokimq::LogLevel lvl, const char* file, int line, std::string msg) {
+  italomq::ItaloMQ lmq{[](italomq::LogLevel lvl, const char* file, int line, std::string msg) {
                        std::cout << lvl << " [" << file << ":" << line << "] " << msg << std::endl;
                      },
                      logLevel};
@@ -151,7 +151,7 @@ main(int argc, char* argv[])
       rpcURL,
       [&connectPromise](auto) { connectPromise.set_value(true); },
       [&connectPromise](auto, std::string_view msg) {
-        std::cout << "failed to connect to lokinet RPC: " << msg << std::endl;
+        std::cout << "failed to connect to italonet RPC: " << msg << std::endl;
         connectPromise.set_value(false);
       });
 

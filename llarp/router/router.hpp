@@ -26,7 +26,7 @@
 #include <router/route_poker.hpp>
 #include <routing/handler.hpp>
 #include <routing/message_parser.hpp>
-#include <rpc/lokid_rpc_client.hpp>
+#include <rpc/italod_rpc_client.hpp>
 #include <rpc/rpc_server.hpp>
 #include <service/context.hpp>
 #include <stdexcept>
@@ -46,7 +46,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <lokimq/address.h>
+#include <italomq/address.h>
 
 namespace llarp
 {
@@ -82,10 +82,10 @@ namespace llarp
       return m_lmq;
     }
 
-    std::shared_ptr<rpc::LokidRpcClient>
+    std::shared_ptr<rpc::ItalodRpcClient>
     RpcClient() const override
     {
-      return m_lokidRpcClient;
+      return m_italodRpcClient;
     }
 
     std::shared_ptr<Logic>
@@ -183,7 +183,7 @@ namespace llarp
     llarp_dht_context* _dht = nullptr;
     llarp_nodedb* _nodedb;
     llarp_time_t _startedAt;
-    const lokimq::TaggedThreadID m_DiskThread;
+    const italomq::TaggedThreadID m_DiskThread;
 
     llarp_time_t
     Uptime() const override;
@@ -263,16 +263,16 @@ namespace llarp
     void
     PumpLL() override;
 
-    const lokimq::address DefaultRPCBindAddr = lokimq::address::tcp("127.0.0.1", 1190);
+    const italomq::address DefaultRPCBindAddr = italomq::address::tcp("127.0.0.1", 1190);
     bool enableRPCServer = false;
-    lokimq::address rpcBindAddr = DefaultRPCBindAddr;
+    italomq::address rpcBindAddr = DefaultRPCBindAddr;
     std::unique_ptr<rpc::RpcServer> m_RPCServer;
 
     const llarp_time_t _randomStartDelay;
 
-    std::shared_ptr<rpc::LokidRpcClient> m_lokidRpcClient;
+    std::shared_ptr<rpc::ItalodRpcClient> m_italodRpcClient;
 
-    lokimq::address lokidRPCAddr;
+    italomq::address italodRPCAddr;
     Profiling _routerProfiling;
     fs::path _profilesFile;
     OutboundMessageHandler _outboundMessageHandler;

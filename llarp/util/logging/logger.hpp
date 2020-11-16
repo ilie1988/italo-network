@@ -27,7 +27,7 @@ namespace llarp
     LogLevel startupLevel = eLogInfo;
     LogLevel runtimeLevel = eLogInfo;
     ILogStream_ptr logStream;
-    std::string nodeName = "lokinet";
+    std::string nodeName = "italonet";
 
     const llarp_time_t started;
 

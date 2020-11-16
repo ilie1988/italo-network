@@ -21,7 +21,7 @@ local debian_pipeline(name, image,
         werror=true,
         cmake_extra='',
         extra_cmds=[],
-        loki_repo=false,
+        italo_repo=false,
         allow_fail=false) = {
     kind: 'pipeline',
     type: 'docker',
@@ -40,10 +40,10 @@ local debian_pipeline(name, image,
                 'echo "man-db man-db/auto-update boolean false" | debconf-set-selections',
                 apt_get_quiet + ' update',
                 apt_get_quiet + ' install -y eatmydata',
-                ] + (if loki_repo then [
+                ] + (if italo_repo then [
                     'eatmydata ' + apt_get_quiet + ' install -y lsb-release',
-                    'cp contrib/deb.loki.network.gpg /etc/apt/trusted.gpg.d',
-                    'echo deb http://deb.loki.network $$(lsb_release -sc) main >/etc/apt/sources.list.d/loki.network.list',
+                    'cp contrib/deb.italo.network.gpg /etc/apt/trusted.gpg.d',
+                    'echo deb http://deb.italo.network $$(lsb_release -sc) main >/etc/apt/sources.list.d/italo.network.list',
                     'eatmydata ' + apt_get_quiet + ' update'
                     ] else []
                 ) + [
@@ -108,7 +108,7 @@ local windows_cross_pipeline(name, image,
 };
 
 // Builds a snapshot .deb on a debian-like system by merging into the debian/* or ubuntu/* branch
-local deb_builder(image, distro, distro_branch, arch='amd64', loki_repo=true) = {
+local deb_builder(image, distro, distro_branch, arch='amd64', italo_repo=true) = {
     kind: 'pipeline',
     type: 'docker',
     name: 'DEB (' + distro + (if arch == 'amd64' then '' else '/' + arch) + ')',
@@ -124,9 +124,9 @@ local deb_builder(image, distro, distro_branch, arch='amd64', loki_repo=true) = 
             commands: [
                 'echo "Building on ${DRONE_STAGE_MACHINE}"',
                 'echo "man-db man-db/auto-update boolean false" | debconf-set-selections'
-                ] + (if loki_repo then [
-                    'cp contrib/deb.loki.network.gpg /etc/apt/trusted.gpg.d',
-                    'echo deb http://deb.loki.network $${distro} main >/etc/apt/sources.list.d/loki.network.list'
+                ] + (if italo_repo then [
+                    'cp contrib/deb.italo.network.gpg /etc/apt/trusted.gpg.d',
+                    'echo deb http://deb.italo.network $${distro} main >/etc/apt/sources.list.d/italo.network.list'
                 ] else []) + [
                 apt_get_quiet + ' update',
                 apt_get_quiet + ' install -y eatmydata',
@@ -134,7 +134,7 @@ local deb_builder(image, distro, distro_branch, arch='amd64', loki_repo=true) = 
                 |||
                     # Look for the debian branch in this repo first, try upstream if that fails.
                     if ! git checkout $${distro_branch}; then
-                        git remote add --fetch upstream https://github.com/loki-project/loki-network.git &&
+                        git remote add --fetch upstream https://github.com/italo-project/italo-network.git &&
                         git checkout $${distro_branch}
                     fi
                 |||,
@@ -148,7 +148,7 @@ local deb_builder(image, distro, distro_branch, arch='amd64', loki_repo=true) = 
                 'gbp dch -S -s "HEAD^" --spawn-editor=never -U low',
                 'eatmydata mk-build-deps --install --remove --tool "' + apt_get_quiet + ' -o Debug::pkgProblemResolver=yes --no-install-recommends -y"',
                 'export DEB_BUILD_OPTIONS="parallel=$$(nproc)"',
-                #'grep -q lib debian/lokinet-bin.install || echo "/usr/lib/lib*.so*" >>debian/lokinet-bin.install',
+                #'grep -q lib debian/italonet-bin.install || echo "/usr/lib/lib*.so*" >>debian/italonet-bin.install',
                 'debuild -e CCACHE_DIR -b',
                 './contrib/ci/drone-debs-upload.sh ' + distro,
             ]
@@ -209,7 +209,7 @@ local mac_builder(name, build_type='Release', werror=true, cmake_extra='', extra
     debian_pipeline("Debian buster (i386)", "i386/debian:buster", cmake_extra='-DDOWNLOAD_SODIUM=ON'),
     debian_pipeline("Ubuntu focal (amd64)", "ubuntu:focal"),
     debian_pipeline("Ubuntu bionic (amd64)", "ubuntu:bionic", deps='g++-8 ' + default_deps_nocxx,
-                    cmake_extra='-DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8', loki_repo=true),
+                    cmake_extra='-DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8', italo_repo=true),
 
     // ARM builds (ARM64 and armhf)
     debian_pipeline("Debian sid (ARM64)", "debian:sid", arch="arm64"),
@@ -221,7 +221,7 @@ local mac_builder(name, build_type='Release', werror=true, cmake_extra='', extra
           '../contrib/ci/drone-static-upload.sh'
     ]),
 
-    // Static build (on bionic) which gets uploaded to builds.lokinet.dev:
+    // Static build (on bionic) which gets uploaded to builds.italonet.dev:
     debian_pipeline("Static (bionic amd64)", "ubuntu:bionic", deps='g++-8 python3-dev', lto=true,
                     cmake_extra='-DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF -DSTATIC_LINK=ON -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8 ' +
                         '-DCMAKE_CXX_FLAGS="-march=x86-64 -mtune=haswell" -DCMAKE_C_FLAGS="-march=x86-64 -mtune=haswell" -DNATIVE_BUILD=OFF ' +

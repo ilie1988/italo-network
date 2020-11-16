@@ -2,13 +2,13 @@
 
 . /etc/rc.subr
 
-name=lokinet
-rcvar=lokinet_enable
+name=italonet
+rcvar=italonet_enable
 
 command="/usr/local/bin/${name}"
 command_args="/usr/local/etc/${name}/daemon.ini > /dev/null 2>&1"
 
-pidfile="/usr/local/etc/${name}/lokinet.pid"
+pidfile="/usr/local/etc/${name}/italonet.pid"
 
 required_files="/usr/local/etc/${name}/daemon.ini"
 

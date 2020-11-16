@@ -1,34 +1,34 @@
-# Lokinet
+# Italonet
 
 [English](readme.md) [Español](readme_es.md)
 
-Lokinet - реализация LLARP (протокол анонимной маршрутизации с малой задержкой), протокола трёхуровневой луковой маршрутизации.
+Italonet - реализация LLARP (протокол анонимной маршрутизации с малой задержкой), протокола трёхуровневой луковой маршрутизации.
 
 Почитать о дизайне высокого уровня LLARP [здесь](docs/high-level.txt)
 
 Почитать спецификацию протокола LLARP [здесь](docs/proto_v0.txt)
 
-Почитать документацию о том, как начать работу [здесь](https://loki-project.github.io/loki-docs/Lokinet/LokinetOverview/)
+Почитать документацию о том, как начать работу [здесь](https://italo-project.github.io/italo-docs/Italonet/ItalonetOverview/)
 
-[![Build Status](https://drone.lokinet.dev/api/badges/loki-project/loki-network/status.svg?ref=refs/heads/master)](https://drone.lokinet.dev/loki-project/loki-network)
+[![Build Status](https://drone.italonet.dev/api/badges/italo-project/italo-network/status.svg?ref=refs/heads/master)](https://drone.italonet.dev/italo-project/italo-network)
 
 ## Использование
 
-О том как начать работу см. [Документацию](https://loki-project.github.io/loki-docs/Lokinet/LokinetOverview/)
+О том как начать работу см. [Документацию](https://italo-project.github.io/italo-docs/Italonet/ItalonetOverview/)
 
-Также прочтите [Public Testing Guide](https://lokidocs.com/Lokinet/Guides/PublicTestingGuide/#1-lokinet-installation) для установки и другой полезной информации.
+Также прочтите [Public Testing Guide](https://italodocs.com/Italonet/Guides/PublicTestingGuide/#1-italonet-installation) для установки и другой полезной информации.
 
 ### Создание стандартной конфигурации
 
 настроить как клиент:
 
-    $ lokinet -g
-    $ lokinet-bootstrap
+    $ italonet -g
+    $ italonet-bootstrap
 
 настроить как транслятор:
 
-    $ lokinet -r -g
-    $ lokinet-bootstrap
+    $ italonet -r -g
+    $ italonet-bootstrap
 
 
 ## Запуск в Linux
@@ -37,17 +37,17 @@ Lokinet - реализация LLARP (протокол анонимной мар
 
 для запуска, после создания конфигурации:
 
-    $ lokinet
+    $ italonet
 
 ## Запуск в MacOS/UNIX/BSD
 
 ** ВЫ ДОЛЖНЫ ЗАПУСКАТЬ С ПРАВАМИ СУПЕРПОЛЬЗОВАТЕЛЯ **, запускайте с помощью `sudo`. Для создания интерфейса виртуального туннеля необходимы повышенные привилегии.
 
-Установщик MacOS помещает исполняемые файлы (`lokinet` и` lokinet-bootstrap`) в `/usr/local/bin`, благодаря этому вы можете легко использовать исполняемые файлы в своем терминале. Установщик также уничтожает вашу предыдущую конфигурацию и ключи, устанавливает новую конфигурацию и загружает актуальную версию bootstrap.
+Установщик MacOS помещает исполняемые файлы (`italonet` и` italonet-bootstrap`) в `/usr/local/bin`, благодаря этому вы можете легко использовать исполняемые файлы в своем терминале. Установщик также уничтожает вашу предыдущую конфигурацию и ключи, устанавливает новую конфигурацию и загружает актуальную версию bootstrap.
 
 для запуска, после создания конфигурации:
 
-    $ sudo lokinet
+    $ sudo italonet
 
 ## Запуск в Windows
 
@@ -71,8 +71,8 @@ Lokinet - реализация LLARP (протокол анонимной мар
 сборка:
 
     $ sudo apt install build-essential cmake git libcap-dev curl libuv1-dev libsodium-dev pkg-config
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake .. -DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF -DSTATIC_LINK=ON
@@ -87,8 +87,8 @@ Lokinet - реализация LLARP (протокол анонимной мар
 сборка:
     убедитесь, что у вас установлены инструменты командной строки cmake, libuv и xcode
 
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake .. -DBUILD_STATIC_DEPS=ON -DBUILD_SHARED_LIBS=OFF -DSTATIC_LINK=ON
@@ -113,8 +113,8 @@ Lokinet - реализация LLARP (протокол анонимной мар
 
 сборка:
 
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build-windows
     $ cd build-windows
     $ cmake -DBUILD_STATIC_DEPS=ON -DNATIVE_BUILD=OFF -DCMAKE_BUILD_TYPE=Release -DBUILD_PACKAGE=ON -DCMAKE_TOOLCHAIN_FILE='../contrib/cross/mingw64.cmake' -DWITH_TESTS=OFF -DCMAKE_CROSSCOMPILING=ON ..
@@ -133,8 +133,8 @@ Lokinet - реализация LLARP (протокол анонимной мар
     $ sudo pkg install build-essential gcc8 wget tuntap cmake (optional: ninja ccache - from omnios extra) (OmniOS CE)
     $ sudo pkg install base-developer-utilities developer-gnu developer-studio-utilities gcc-7 wget cmake (Oracle Solaris, see note)
     $ sudo pkg install build-essential wget gcc-8 documentation/tuntap header-tun tun (optional: ninja ccache) (all other SunOS)
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cd build
     $ cmake ..
@@ -149,8 +149,8 @@ Lokinet - реализация LLARP (протокол анонимной мар
 сборка:
 
     $ pkg install cmake git curl libuv libsodium pkgconf libunbound
-    $ git clone --recursive https://github.com/loki-project/loki-network
-    $ cd loki-network
+    $ git clone --recursive https://github.com/italo-project/italo-network
+    $ cd italo-network
     $ mkdir build
     $ cmake -DCMAKE_BUILD_TYPE=Release ..
     $ make

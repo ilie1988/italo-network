@@ -1,9 +1,9 @@
-package network.loki.lokinet;
+package network.italo.italonet;
 
 
 import android.net.VpnService;
 
-public class LokinetService extends VpnService
+public class ItalonetService extends VpnService
 {
     
 }

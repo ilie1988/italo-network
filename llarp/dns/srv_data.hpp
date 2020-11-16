@@ -24,7 +24,7 @@ namespace llarp::dns
     // options:
     //   empty                     - refer to query name
     //   dot                       - authoritative "no such service available"
-    //   any other .loki or .snode - target is that .loki or .snode
+    //   any other .italo or .snode - target is that .italo or .snode
     std::string target;
 
     // do some basic validation on the target string
@@ -48,11 +48,11 @@ namespace llarp::dns
      *
      * target can be empty, in which case the space after port should
      * be omitted.  if this is the case, the target is
-     * interpreted as the .loki or .snode of the current context.
+     * interpreted as the .italo or .snode of the current context.
      *
      * if target is not empty, it must be either
      *  - simply a full stop (dot/period) OR
-     *  - a name within the .loki or .snode subdomains. a target
+     *  - a name within the .italo or .snode subdomains. a target
      *    specified in this manner must not end with a full stop.
      */
     bool

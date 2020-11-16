@@ -14,7 +14,7 @@
 #include <tooling/router_event.hpp>
 #include <peerstats/peer_db.hpp>
 
-#ifdef LOKINET_HIVE
+#ifdef ITALONET_HIVE
 #include "tooling/router_event.hpp"
 #endif
 
@@ -23,9 +23,9 @@ struct llarp_dht_context;
 struct llarp_nodedb;
 struct llarp_threadpool;
 
-namespace lokimq
+namespace italomq
 {
-  class LokiMQ;
+  class ItaloMQ;
 }
 
 namespace llarp
@@ -52,7 +52,7 @@ namespace llarp
 
   namespace rpc
   {
-    struct LokidRpcClient;
+    struct ItalodRpcClient;
   }
 
   namespace path
@@ -75,11 +75,11 @@ namespace llarp
     class ThreadPool;
   }
 
-  using LMQ_ptr = std::shared_ptr<lokimq::LokiMQ>;
+  using LMQ_ptr = std::shared_ptr<italomq::ItaloMQ>;
 
   struct AbstractRouter
   {
-#ifdef LOKINET_HIVE
+#ifdef ITALONET_HIVE
     tooling::RouterHive* hive = nullptr;
 #endif
 
@@ -91,7 +91,7 @@ namespace llarp
     virtual LMQ_ptr
     lmq() const = 0;
 
-    virtual std::shared_ptr<rpc::LokidRpcClient>
+    virtual std::shared_ptr<rpc::ItalodRpcClient>
     RpcClient() const = 0;
 
     virtual std::shared_ptr<Logic>

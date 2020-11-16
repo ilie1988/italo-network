@@ -19,7 +19,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'lokinet'
+project = 'italonet'
 copyright = '2020, Jeff Becker'
 author = 'Jeff Becker'
 
@@ -41,15 +41,15 @@ release = ''
 # ones.
 
 extensions = ['breathe', 'exhale']
-breathe_projects = { "lokinet": "@CMAKE_CURRENT_BINARY_DIR@/doxyxml/" }
-breathe_default_project = "lokinet"
+breathe_projects = { "italonet": "@CMAKE_CURRENT_BINARY_DIR@/doxyxml/" }
+breathe_default_project = "italonet"
 breathe_domain_by_extension = {"h" : "cpp", "hpp": "cpp"}
 
 exhale_args = {
     # These arguments are required
     "containmentFolder":     "./api",
-    "rootFileName":          "lokinet.rst",
-    "rootFileTitle":         "lokinet internals",
+    "rootFileName":          "italonet.rst",
+    "rootFileTitle":         "italonet internals",
     "doxygenStripFromPath":  "..",
     # Suggested optional arguments
     "createTreeView":        True,
@@ -117,7 +117,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'lokinetdoc'
+htmlhelp_basename = 'italonetdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -144,7 +144,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'lokinet.tex', 'lokinet Documentation',
+    (master_doc, 'italonet.tex', 'italonet Documentation',
      'Jeff Becker', 'manual'),
 ]
 
@@ -154,7 +154,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'lokinet', 'lokinet Documentation',
+    (master_doc, 'italonet', 'italonet Documentation',
      [author], 1)
 ]
 
@@ -165,8 +165,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'lokinet', 'lokinet Documentation',
-     author, 'lokinet', 'One line description of project.',
+    (master_doc, 'italonet', 'italonet Documentation',
+     author, 'italonet', 'One line description of project.',
      'Miscellaneous'),
 ]
 

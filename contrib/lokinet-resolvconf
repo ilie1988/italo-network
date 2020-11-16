@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# Script to invoke resolvconf (if installed) to add/remove lokinet into/from the resolvconf DNS
+# Script to invoke resolvconf (if installed) to add/remove italonet into/from the resolvconf DNS
 # server list.  This script does not add if any of these are true:
 #
 # - /sbin/resolvconf does not exist
 # - the systemd-resolved service is active
-# - a `no-resolvconf=1` item is present in the [dns] section of lokinet.ini
+# - a `no-resolvconf=1` item is present in the [dns] section of italonet.ini
 #
 # It always attempts to remove if resolvconf is installed (so that commenting out while running,
 # then stopping still removes the added entry).
 #
-# Usage: lokinet-resolvconf {add|remove} /etc/loki/lokinet.ini
+# Usage: italonet-resolvconf {add|remove} /etc/italo/italonet.ini
 
 set -e
 
@@ -18,7 +18,7 @@ action="$1"
 conf="$2"
 
 if [[ ! ("$action" == "add" || "$action" == "remove") || ! -f "$conf" ]]; then
-    echo "Usage: $0 {add|remove} /path/to/lokinet.ini" >&2
+    echo "Usage: $0 {add|remove} /path/to/italonet.ini" >&2
     exit 1
 fi
 
@@ -33,7 +33,7 @@ fi
 if [ "$action" == "add" ]; then
     if ! [ -x /sbin/resolvconf ]; then exit 0; fi
 
-    lokinet_ns=$(perl -e '
+    italonet_ns=$(perl -e '
     $ns = "127.3.2.1"; # default if none found in .ini
     while (<>) {
         if ((/^\[dns\]/ ... /^\[/)) {
@@ -46,9 +46,9 @@ if [ "$action" == "add" ]; then
     }
     print $ns' "$conf")
 
-    if [ -n "$lokinet_ns" ]; then
-        echo "nameserver $lokinet_ns" | /sbin/resolvconf -a lo.000lokinet
+    if [ -n "$italonet_ns" ]; then
+        echo "nameserver $italonet_ns" | /sbin/resolvconf -a lo.000italonet
     fi
 else
-    /sbin/resolvconf -d lo.000lokinet
+    /sbin/resolvconf -d lo.000italonet
 fi

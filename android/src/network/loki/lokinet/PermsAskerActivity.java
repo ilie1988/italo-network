@@ -1,4 +1,4 @@
-package network.loki.lokinet;
+package network.italo.italonet;
 
 import android.Manifest;
 import android.app.Activity;
@@ -134,7 +134,7 @@ public class PermsAskerActivity extends Activity {
     }
 
     private void startMainActivity() {
-        startActivity(new Intent(this, LokiNetActivity.class));
+        startActivity(new Intent(this, ItaloNetActivity.class));
         finish();
     }
 

@@ -40,7 +40,7 @@
 #include <systemd/sd-daemon.h>
 #endif
 
-#include <lokimq/lokimq.h>
+#include <italomq/italomq.h>
 
 static constexpr std::chrono::milliseconds ROUTER_TICK_INTERVAL = 1s;
 
@@ -48,7 +48,7 @@ namespace llarp
 {
   Router::Router(llarp_ev_loop_ptr __netloop, std::shared_ptr<Logic> l)
       : ready(false)
-      , m_lmq(std::make_shared<lokimq::LokiMQ>())
+      , m_lmq(std::make_shared<italomq::ItaloMQ>())
       , _netloop(std::move(__netloop))
       , _logic(std::move(l))
       , paths(this)
@@ -58,15 +58,15 @@ namespace llarp
       , inbound_link_msg_parser(this)
       , _hiddenServiceContext(this)
       , m_RPCServer(new rpc::RpcServer(m_lmq, this))
-#ifdef LOKINET_HIVE
+#ifdef ITALONET_HIVE
       , _randomStartDelay(std::chrono::milliseconds((llarp::randint() % 1250) + 2000))
 #else
       , _randomStartDelay(std::chrono::seconds((llarp::randint() % 30) + 10))
 #endif
-      , m_lokidRpcClient(std::make_shared<rpc::LokidRpcClient>(m_lmq, this))
+      , m_italodRpcClient(std::make_shared<rpc::ItalodRpcClient>(m_lmq, this))
   {
     m_keyManager = std::make_shared<KeyManager>();
-    // for lokid, so we don't close the connection when syncing the whitelist
+    // for italod, so we don't close the connection when syncing the whitelist
     m_lmq->MAX_MSG_SIZE = -1;
     _stopping.store(false);
     _running.store(false);
@@ -234,7 +234,7 @@ namespace llarp
         try
         {
           _identity = RpcClient()->ObtainIdentityKey();
-          LogWarn("Obtained lokid identity keys");
+          LogWarn("Obtained italod identity keys");
           break;
         }
         catch (const std::exception& e)
@@ -244,7 +244,7 @@ namespace llarp
               numTries,
               " of ",
               maxTries,
-              " to get lokid identity keys because: ",
+              " to get italod identity keys because: ",
               e.what());
 
           if (numTries == maxTries)
@@ -270,13 +270,13 @@ namespace llarp
   {
     m_Config = c;
     auto& conf = *m_Config;
-    whitelistRouters = conf.lokid.whitelistRouters;
+    whitelistRouters = conf.italod.whitelistRouters;
     if (whitelistRouters)
-      lokidRPCAddr = lokimq::address(conf.lokid.lokidRPCAddr);
+      italodRPCAddr = italomq::address(conf.italod.italodRPCAddr);
 
     enableRPCServer = conf.api.m_enableRPCServer;
     if (enableRPCServer)
-      rpcBindAddr = lokimq::address(conf.api.m_rpcBindAddr);
+      rpcBindAddr = italomq::address(conf.api.m_rpcBindAddr);
 
     if (not StartRpcServer())
       throw std::runtime_error("Failed to start rpc server");
@@ -292,7 +292,7 @@ namespace llarp
 
     if (whitelistRouters)
     {
-      m_lokidRpcClient->ConnectAsync(lokidRPCAddr);
+      m_italodRpcClient->ConnectAsync(italodRPCAddr);
     }
 
     // fetch keys
@@ -455,9 +455,9 @@ namespace llarp
 
     RouterContact::BlockBogons = conf.router.m_blockBogons;
 
-    // Lokid Config
-    whitelistRouters = conf.lokid.whitelistRouters;
-    lokidRPCAddr = lokimq::address(conf.lokid.lokidRPCAddr);
+    // Italod Config
+    whitelistRouters = conf.italod.whitelistRouters;
+    italodRPCAddr = italomq::address(conf.italod.italodRPCAddr);
 
     m_isServiceNode = conf.router.m_isRelay;
 
@@ -502,7 +502,7 @@ namespace llarp
       {
         LogError("No bootstrap files specified in config file, and the default");
         LogError("bootstrap file ", defaultBootstrapFile, " does not exist.");
-        LogError("Please provide a bootstrap file (e.g. run 'lokinet-bootstrap)'");
+        LogError("Please provide a bootstrap file (e.g. run 'italonet-bootstrap)'");
         throw std::runtime_error("No bootstrap files available.");
       }
     }

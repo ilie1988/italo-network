@@ -1,4 +1,4 @@
-module LokiNetwork {
+module ItaloNetwork {
   module LLARP {
     header "include/llarp.h"
     export *

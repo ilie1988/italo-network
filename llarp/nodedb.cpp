@@ -138,7 +138,7 @@ llarp_nodedb::FindClosestTo(const llarp::dht::Key_t& location, uint32_t numRoute
 std::string
 llarp_nodedb::getRCFilePath(const llarp::RouterID& pubkey) const
 {
-  std::string hexString = lokimq::to_hex(pubkey.begin(), pubkey.end());
+  std::string hexString = italomq::to_hex(pubkey.begin(), pubkey.end());
   std::string skiplistDir;
 
   llarp::RouterID r(pubkey);

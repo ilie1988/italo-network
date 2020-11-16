@@ -264,7 +264,7 @@ namespace llarp
       if (self->fromAddr)
       {
         // only do ip limiting from non service nodes
-#ifndef LOKINET_HIVE
+#ifndef ITALONET_HIVE
         if (self->context->CheckPathLimitHitByIP(*self->fromAddr))
         {
           // we hit a limit so tell it to slow tf down

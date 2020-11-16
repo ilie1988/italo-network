@@ -1,9 +1,9 @@
-#ifndef BOOTSERV_LOKINET_CRON_HPP
-#define BOOTSERV_LOKINET_CRON_HPP
+#ifndef BOOTSERV_ITALONET_CRON_HPP
+#define BOOTSERV_ITALONET_CRON_HPP
 
 #include "handler.hpp"
 
-namespace lokinet
+namespace italonet
 {
   namespace bootserv
   {
@@ -20,6 +20,6 @@ namespace lokinet
     };
 
   }  // namespace bootserv
-}  // namespace lokinet
+}  // namespace italonet
 
 #endif

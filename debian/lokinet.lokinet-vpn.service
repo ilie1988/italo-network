@@ -1,12 +1,12 @@
 [Unit]
-Description=LokiNET VPN tunnel: shove all traffic over lokinet
-Wants=lokinet.service
-After=lokinet.service
+Description=ItaloNET VPN tunnel: shove all traffic over italonet
+Wants=italonet.service
+After=italonet.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/lokinet-vpn --up
-ExecStop=/usr/bin/lokinet-vpn --down
+ExecStart=/usr/bin/italonet-vpn --up
+ExecStop=/usr/bin/italonet-vpn --down
 RemainAfterExit=true
 
 [Install]

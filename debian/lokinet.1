@@ -1,9 +1,9 @@
-.TH "lokinet" "1" "Dec 3, 2018"
+.TH "italonet" "1" "Dec 3, 2018"
 
 .SH "NAME"
-lokinet \- Reference implementation for LLARP.
+italonet \- Reference implementation for LLARP.
 .SH "SYNOPSIS"
-.B lokinet
+.B italonet
 [\fI options ... \fR] [\fI config.ini \fR]
 .SH "DESCRIPTION"
 
@@ -13,10 +13,10 @@ to the crudely concieved idea of a packet based onion routing protocol with a
 cryptoeconomical sybil resistence incentive that not only would be able to
 provide low latency anonymous internet access but also be capable of 
 automatically tunneling all local network traffic over said mixnet. Such an a
-program would be the turbo encabu...\fBlokinet\fR . Now basically the only new
+program would be the turbo encabu...\fBitalonet\fR . Now basically the only new
 principle involved is that now instead of restricting the user to using TCP and 
 exposing a socks proxy or transparent proxy like Tor, an ip tunnel is provided
-with a dns resolver for intercepting lookups for the .loki tld. The original
+with a dns resolver for intercepting lookups for the .italo tld. The original
 implementation was in C but eventually devolved into C++ in such a way that 
 there is a public C api but internally entirely implemented with C++11 wrapped
 with a foriegn function interface. The latter being more rapidly developable,
@@ -35,14 +35,14 @@ Configure to be a relay
 
 .SH "FILES"
 
-.I $HOME/.lokinet/
+.I $HOME/.italonet/
 
 .IP
 The default runtime directory
 
 .RE
 
-.I $HOME/.lokinet/lokinet.ini
+.I $HOME/.italonet/italonet.ini
 
 .IP
 The default config file.
@@ -50,11 +50,11 @@ The default config file.
 .RE
 .SH "SEE ALSO"
 
-Documentation for lokinet configuration with loki service nodes. \fBloki-service-nodes(7)\fR
+Documentation for italonet configuration with italo service nodes. \fBitalo-service-nodes(7)\fR
 
 .SH "AUTHOR"
 This manual page was written by Jeff <\m[blue]\fBjeff@i2p\&.rocks\fR\m[]>
 .PP
-Permission is granted to copy, distribute and/or modify this document under the terms of the same license of lokinet source code.
+Permission is granted to copy, distribute and/or modify this document under the terms of the same license of italonet source code.
 .RE
 See the LICENSE file for more information.

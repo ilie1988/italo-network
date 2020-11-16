@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 #
-# python wsgi application for managing many lokinet instances
+# python wsgi application for managing many italonet instances
 #
 
-__doc__ = """lokinet bootserv wsgi app
+__doc__ = """italonet bootserv wsgi app
 also handles webhooks for CI
-run me with via gunicorn pylokinet.bootserv:app
+run me with via gunicorn pyitalonet.bootserv:app
 """
 
 import os
 
-from pylokinet import rc
+from pyitalonet import rc
 import json 
 
 import random
@@ -21,7 +21,7 @@ from dateutil.parser import parse as date_parse
 import requests
 
 
-root = './lokinet'
+root = './italonet'
 
 def _compare_dates(left, right):
     """
@@ -175,13 +175,13 @@ def response(status, msg, respond):
     respond(status, [("Content-Type", "text/plain"), ("Content-Length", "{}".format(len(msg)))])
     return [msg.encode("utf-8")]
 
-def handle_serve_lokinet(modified_since, respond):
-    l = BinHolder('lokinet.zip')
+def handle_serve_italonet(modified_since, respond):
+    l = BinHolder('italonet.zip')
     return l.serve(modified_since, respond)
 
 
-def fetch_lokinet(j, ref="staging", name="build:linux"):
-    holder = BinHolder("lokinet.zip")
+def fetch_italonet(j, ref="staging", name="build:linux"):
+    holder = BinHolder("italonet.zip")
     if 'builds' not in j:
         return False
     selected = None
@@ -202,7 +202,7 @@ def fetch_lokinet(j, ref="staging", name="build:linux"):
             if selected is None or _compare_dates(build["finished_at"], selected["finished_at"]):
                 selected = build
     if selected and 'id' in selected:
-        url = 'https://gitlab.com/lokiproject/loki-network/-/jobs/{}/artifacts/download'.format(selected['id'])
+        url = 'https://gitlab.com/italoproject/italo-network/-/jobs/{}/artifacts/download'.format(selected['id'])
         r = requests.get(url)
         if r.status_code == 200:
             holder.put(r)
@@ -223,7 +223,7 @@ def handle_webhook(j, token, event, respond):
         return []
     event = event.lower()
     if event == 'pipeline hook':
-        if fetch_lokinet(j):
+        if fetch_italonet(j):
             respond("200 OK", [])
             return []
         else:
@@ -257,10 +257,10 @@ def app(environ, start_response):
                 return response('404 Not Found', 'no RCs', start_response)
         elif environ.get("PATH_INFO") == "/ping":
             return response('200 OK', 'pong', start_response)
-        elif environ.get("PATH_INFO") == "/lokinet.zip":
-            return handle_serve_lokinet(environ.get("HTTP_IF_MODIFIED_SINCE"),start_response)
+        elif environ.get("PATH_INFO") == "/italonet.zip":
+            return handle_serve_italonet(environ.get("HTTP_IF_MODIFIED_SINCE"),start_response)
         elif environ.get("PATH_INFO") == "/":
-            return response("200 OK", "lokinet bootserv", start_response)
+            return response("200 OK", "italonet bootserv", start_response)
         else:
             return response('404 Not Found', 'Not found', start_response)
     else:

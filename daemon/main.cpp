@@ -1,7 +1,7 @@
 #include <config/config.hpp>  // for ensure_config
 #include <constants/version.hpp>
 #include <llarp.hpp>
-#include <util/lokinet_init.h>
+#include <util/italonet_init.h>
 #include <util/fs.hpp>
 #include <util/logging/logger.hpp>
 #include <util/logging/ostream_logger.hpp>
@@ -42,7 +42,7 @@ operator delete(void* ptr, size_t) noexcept
 #endif
 
 int
-lokinet_main(int, char**);
+italonet_main(int, char**);
 
 #ifdef _WIN32
 #include <strsafe.h>
@@ -82,7 +82,7 @@ startWinsock()
     perror("Failed to start Windows Sockets");
     return err;
   }
-  ::CreateMutex(nullptr, FALSE, "lokinet_win32_daemon");
+  ::CreateMutex(nullptr, FALSE, "italonet_win32_daemon");
   return 0;
 }
 
@@ -125,8 +125,8 @@ install_win32_daemon()
   // Create the service
   schService = CreateService(
       schSCManager,               // SCM database
-      "lokinet",                  // name of service
-      "Lokinet for Windows",      // service name to display
+      "italonet",                  // name of service
+      "Italonet for Windows",      // service name to display
       SERVICE_ALL_ACCESS,         // desired access
       SERVICE_WIN32_OWN_PROCESS,  // service type
       SERVICE_DEMAND_START,       // start type
@@ -159,7 +159,7 @@ insert_description()
   SC_HANDLE schService;
   SERVICE_DESCRIPTION sd;
   LPTSTR szDesc =
-      "LokiNET is a free, open source, private, "
+      "ItaloNET is a free, open source, private, "
       "decentralized, \"market based sybil resistant\" "
       "and IP based onion routing network";
   // Get a handle to the SCM database.
@@ -177,7 +177,7 @@ insert_description()
   // Get a handle to the service.
   schService = OpenService(
       schSCManager,            // SCM database
-      "lokinet",               // name of service
+      "italonet",               // name of service
       SERVICE_CHANGE_CONFIG);  // need change config access
 
   if (schService == nullptr)
@@ -225,7 +225,7 @@ uninstall_win32_daemon()
   // Get a handle to the service.
   schService = OpenService(
       schSCManager,  // SCM database
-      "lokinet",     // name of service
+      "italonet",     // name of service
       0x10000);      // need delete access
 
   if (schService == nullptr)
@@ -335,9 +335,9 @@ int
 main(int argc, char* argv[])
 {
 #ifndef _WIN32
-  return lokinet_main(argc, argv);
+  return italonet_main(argc, argv);
 #else
-  SERVICE_TABLE_ENTRY DispatchTable[] = {{"lokinet", (LPSERVICE_MAIN_FUNCTION)win32_daemon_entry},
+  SERVICE_TABLE_ENTRY DispatchTable[] = {{"italonet", (LPSERVICE_MAIN_FUNCTION)win32_daemon_entry},
                                          {NULL, NULL}};
   if (lstrcmpi(argv[1], "--win32-daemon") == 0)
   {
@@ -345,14 +345,14 @@ main(int argc, char* argv[])
     StartServiceCtrlDispatcher(DispatchTable);
   }
   else
-    return lokinet_main(argc, argv);
+    return italonet_main(argc, argv);
 #endif
 }
 
 int
-lokinet_main(int argc, char* argv[])
+italonet_main(int argc, char* argv[])
 {
-  auto result = Lokinet_INIT();
+  auto result = Italonet_INIT();
   if (result)
   {
     return result;
@@ -368,8 +368,8 @@ lokinet_main(int argc, char* argv[])
   // SetUnhandledExceptionFilter(win32_signal_handler);
 #endif
   cxxopts::Options options(
-      "lokinet",
-      "LokiNET is a free, open source, private, "
+      "italonet",
+      "ItaloNET is a free, open source, private, "
       "decentralized, \"market based sybil resistant\" "
       "and IP based onion routing network");
   options.add_options()("v,verbose", "Verbose", cxxopts::value<bool>())
@@ -530,7 +530,7 @@ lokinet_main(int argc, char* argv[])
 
   do
   {
-    // do periodic non lokinet related tasks here
+    // do periodic non italonet related tasks here
     if (ctx and ctx->IsUp() and not ctx->LooksAlive())
     {
       for (const auto& wtf : {"you have been visited by the mascott of the "
@@ -638,13 +638,13 @@ SvcCtrlHandler(DWORD dwCtrl)
 }
 
 // The win32 daemon entry point is just a trampoline that returns control
-// to the original lokinet entry
+// to the original italonet entry
 // and only gets called if we get --win32-daemon in the command line
 VOID FAR PASCAL
 win32_daemon_entry(DWORD argc, LPTSTR* argv)
 {
   // Register the handler function for the service
-  SvcStatusHandle = RegisterServiceCtrlHandler("lokinet", SvcCtrlHandler);
+  SvcStatusHandle = RegisterServiceCtrlHandler("italonet", SvcCtrlHandler);
 
   if (!SvcStatusHandle)
   {
@@ -660,8 +660,8 @@ win32_daemon_entry(DWORD argc, LPTSTR* argv)
   ReportSvcStatus(SERVICE_START_PENDING, NO_ERROR, 3000);
   // SCM clobbers startup args, regenerate them here
   argc = 2;
-  argv[1] = "c:/programdata/lokinet/lokinet.ini";
+  argv[1] = "c:/programdata/italonet/italonet.ini";
   argv[2] = nullptr;
-  lokinet_main(argc, argv);
+  italonet_main(argc, argv);
 }
 #endif

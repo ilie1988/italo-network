@@ -210,7 +210,7 @@ namespace llarp
 
       /// queue for sending packets to user from network
       std::priority_queue<WritePacket> m_NetworkToUserPktQueue;
-      /// return true if we have a remote loki address for this ip address
+      /// return true if we have a remote italo address for this ip address
       bool
       HasRemoteForIP(huint128_t ipv4) const;
 

@@ -131,7 +131,7 @@ LLARP - Low Latency Anon Routing Protocol -  Protocolo de Enrutado Anónimo de B
 	para ese tipo de ataques.
 	
 	
-	Este es un problema difícil de resolver en que la red Loki pudiera ayudar con la 
+	Este es un problema difícil de resolver en que la red Italo pudiera ayudar con la 
 	creación de una barrera financiera para correr múltiples relays.
 	
 	

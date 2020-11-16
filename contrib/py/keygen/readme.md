@@ -1,4 +1,4 @@
-# lokinet key generator
+# italonet key generator
 
 requires:
 

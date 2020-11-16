@@ -1,22 +1,22 @@
-#ifndef LLARP_UTIL_LOKINET_INIT_H
-#define LLARP_UTIL_LOKINET_INIT_H
+#ifndef LLARP_UTIL_ITALONET_INIT_H
+#define LLARP_UTIL_ITALONET_INIT_H
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#ifndef Lokinet_INIT
+#ifndef Italonet_INIT
 #if defined(_WIN32)
-#define Lokinet_INIT \
+#define Italonet_INIT \
   DieInCaseSomehowThisGetsRunInWineButLikeWTFThatShouldNotHappenButJustInCaseHandleItWithAPopupOrSomeShit
 #else
-#define Lokinet_INIT _lokinet_non_shit_platform_INIT
+#define Italonet_INIT _italonet_non_shit_platform_INIT
 #endif
 #endif
 
   int
-  Lokinet_INIT(void);
+  Italonet_INIT(void);
 
 #ifdef __cplusplus
 }

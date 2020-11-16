@@ -28,11 +28,11 @@ class Monitor:
         self._run = True
     
     def rpc(self, method):
-        self._rpc_socket.send_multipart([method.encode(), b'lokinetmon'+method.encode()])
+        self._rpc_socket.send_multipart([method.encode(), b'italonetmon'+method.encode()])
         if not self._rpc_socket.poll(timeout=50):
             return
         reply = self._rpc_socket.recv_multipart()
-        if len(reply) >= 3 and reply[0:2] == [b'REPLY', b'lokinetmon'+method.encode()]:
+        if len(reply) >= 3 and reply[0:2] == [b'REPLY', b'italonetmon'+method.encode()]:
             return reply[2].decode()
             
     def _close(self):
@@ -41,7 +41,7 @@ class Monitor:
         curses.endwin()
 
     def update_data(self):
-        """update data from lokinet"""
+        """update data from italonet"""
         try:
             data = json.loads(self.rpc("llarp.status"))
             self.data = data['result']
@@ -325,7 +325,7 @@ class Monitor:
                 pass
         else:
             self.win.move(1, 1)
-            self.win.addstr("lokinet offline")
+            self.win.addstr("italonet offline")
 
     def run(self):
         """ run mainloop """

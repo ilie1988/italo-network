@@ -1,4 +1,4 @@
 @echo off
-copy lokinet.ini lokinet.old.ini
-del lokinet.ini
-%PROGRAMFILES%\Loki Project\Lokinet\lokinet -g
+copy italonet.ini italonet.old.ini
+del italonet.ini
+%PROGRAMFILES%\Italo Project\Italonet\italonet -g

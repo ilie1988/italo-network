@@ -1,6 +1,6 @@
-#include "network_loki_lokinet_LokinetVPN.h"
-#include "lokinet_jni_vpnio.hpp"
-#include "lokinet_jni_common.hpp"
+#include "network_italo_italonet_ItalonetVPN.h"
+#include "italonet_jni_vpnio.hpp"
+#include "italonet_jni_common.hpp"
 #include <net/ip.hpp>
 #include <net/ip_packet.hpp>
 #include <string_view>
@@ -8,30 +8,30 @@
 extern "C"
 {
   JNIEXPORT jint JNICALL
-  Java_network_loki_lokinet_LokinetVPN_PacketSize(JNIEnv*, jclass)
+  Java_network_italo_italonet_ItalonetVPN_PacketSize(JNIEnv*, jclass)
   {
     return llarp::net::IPPacket::MaxSize;
   }
 
   JNIEXPORT jobject JNICALL
-  Java_network_loki_lokinet_LokinetVPN_Alloc(JNIEnv* env, jclass)
+  Java_network_italo_italonet_ItalonetVPN_Alloc(JNIEnv* env, jclass)
   {
-    lokinet_jni_vpnio* vpn = new lokinet_jni_vpnio();
-    return env->NewDirectByteBuffer(vpn, sizeof(lokinet_jni_vpnio));
+    italonet_jni_vpnio* vpn = new italonet_jni_vpnio();
+    return env->NewDirectByteBuffer(vpn, sizeof(italonet_jni_vpnio));
   }
 
   JNIEXPORT void JNICALL
-  Java_network_loki_lokinet_LokinetVPN_Free(JNIEnv* env, jclass, jobject buf)
+  Java_network_italo_italonet_ItalonetVPN_Free(JNIEnv* env, jclass, jobject buf)
   {
-    lokinet_jni_vpnio* vpn = FromBuffer<lokinet_jni_vpnio>(env, buf);
+    italonet_jni_vpnio* vpn = FromBuffer<italonet_jni_vpnio>(env, buf);
     if (vpn == nullptr)
       return;
     delete vpn;
   }
   JNIEXPORT void JNICALL
-  Java_network_loki_lokinet_LokinetVPN_Stop(JNIEnv* env, jobject self)
+  Java_network_italo_italonet_ItalonetVPN_Stop(JNIEnv* env, jobject self)
   {
-    lokinet_jni_vpnio* vpn = GetImpl<lokinet_jni_vpnio>(env, self);
+    italonet_jni_vpnio* vpn = GetImpl<italonet_jni_vpnio>(env, self);
     if (vpn)
     {
       vpn->Close();
@@ -39,9 +39,9 @@ extern "C"
   }
 
   JNIEXPORT jint JNICALL
-  Java_network_loki_lokinet_LokinetVPN_ReadPkt(JNIEnv* env, jobject self, jobject pkt)
+  Java_network_italo_italonet_ItalonetVPN_ReadPkt(JNIEnv* env, jobject self, jobject pkt)
   {
-    lokinet_jni_vpnio* vpn = GetImpl<lokinet_jni_vpnio>(env, self);
+    italonet_jni_vpnio* vpn = GetImpl<italonet_jni_vpnio>(env, self);
     if (vpn == nullptr)
       return -1;
     void* pktbuf = env->GetDirectBufferAddress(pkt);
@@ -52,9 +52,9 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_network_loki_lokinet_LokinetVPN_WritePkt(JNIEnv* env, jobject self, jobject pkt)
+  Java_network_italo_italonet_ItalonetVPN_WritePkt(JNIEnv* env, jobject self, jobject pkt)
   {
-    lokinet_jni_vpnio* vpn = GetImpl<lokinet_jni_vpnio>(env, self);
+    italonet_jni_vpnio* vpn = GetImpl<italonet_jni_vpnio>(env, self);
     if (vpn == nullptr)
       return false;
     void* pktbuf = env->GetDirectBufferAddress(pkt);
@@ -65,9 +65,9 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_network_loki_lokinet_LokinetVPN_SetInfo(JNIEnv* env, jobject self, jobject info)
+  Java_network_italo_italonet_ItalonetVPN_SetInfo(JNIEnv* env, jobject self, jobject info)
   {
-    lokinet_jni_vpnio* vpn = GetImpl<lokinet_jni_vpnio>(env, self);
+    italonet_jni_vpnio* vpn = GetImpl<italonet_jni_vpnio>(env, self);
     if (vpn == nullptr)
       return;
     VisitObjectMemberStringAsStringView<bool>(

@@ -20,7 +20,7 @@ class RouterHive(object):
     try:
 
       self.endpointName = "pyllarp"
-      self.tmpdir = "/tmp/lokinet_hive"
+      self.tmpdir = "/tmp/italonet_hive"
       self.netid = netid
 
       self.n_relays = n_relays
@@ -57,7 +57,7 @@ class RouterHive(object):
     config.Load(None, True)
 
     port = index + 30000
-    tunname = "lokihive%d" % index
+    tunname = "italohive%d" % index
 
     config.router.dataDir = dirname
     config.router.netid = self.netid
@@ -79,7 +79,7 @@ class RouterHive(object):
 
     config.api.enableRPCServer = False
 
-    config.lokid.whitelistRouters = False
+    config.italod.whitelistRouters = False
     print("adding relay at index %d" % index)
     self.hive.AddRelay(config)
 
@@ -91,7 +91,7 @@ class RouterHive(object):
     config.Load(None, False);
 
     port = index + 50000
-    tunname = "lokihive%d" % index
+    tunname = "italohive%d" % index
 
     config.router.dataDir = dirname
     config.router.netid = self.netid
@@ -108,7 +108,7 @@ class RouterHive(object):
 
     config.api.enableRPCServer = False
 
-    config.lokid.whitelistRouters = False
+    config.italod.whitelistRouters = False
 
     self.hive.AddClient(config)
 

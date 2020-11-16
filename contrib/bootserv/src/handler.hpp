@@ -1,9 +1,9 @@
-#ifndef LOKINET_BOOTSERV_HANDLER_HPP
-#define LOKINET_BOOTSERV_HANDLER_HPP
+#ifndef ITALONET_BOOTSERV_HANDLER_HPP
+#define ITALONET_BOOTSERV_HANDLER_HPP
 #include <iostream>
-#include "lokinet-config.hpp"
+#include "italonet-config.hpp"
 
-namespace lokinet
+namespace italonet
 {
   namespace bootserv
   {
@@ -38,6 +38,6 @@ namespace lokinet
     NewCronHandler(std::ostream& out);
 
   }  // namespace bootserv
-}  // namespace lokinet
+}  // namespace italonet
 
 #endif

@@ -1,10 +1,10 @@
 [CmdletBinding()]
 param ()
 $web = New-Object System.Net.WebClient
-if( -not ( Test-Path $env:APPDATA\.lokinet -PathType Container ) )
+if( -not ( Test-Path $env:APPDATA\.italonet -PathType Container ) )
 {
-  lokinet.exe -g
+  italonet.exe -g
 }
 
 
-$web.DownloadFile("https://seed.lokinet.org/lokinet.signed", "$env:APPDATA\.lokinet\bootstrap.signed")
+$web.DownloadFile("https://seed.italonet.org/italonet.signed", "$env:APPDATA\.italonet\bootstrap.signed")
